@@ -1,6 +1,12 @@
-## Qualifys
+# Qualifys
 
-Qualifys is a basic tool for Higher Qualify Code and Coding porcdures.
+> Qualifys is a basic tool for Higher Qualify Code and Coding porcdures.
+
+## Usage
+
+### Project Initializer
+
+- under a project directory run `qualifys init`
 
 ### Test Intergated Development
 
