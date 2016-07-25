@@ -9,6 +9,12 @@ var colors = require('colors/safe').setTheme({
   warn: ['red']
 });
 
+program.on('--help', function() {
+  console.log(colors.info('Usage'));
+  console.log(colors.info('$ uxcore-tools run build'), 'compile src files to es3 standard')
+});
+
+
 /**
  * Initialize the project
  */
@@ -23,6 +29,18 @@ program
   });
 
 program.parse(process.argv);
+
+var task = program.args[1];
+
+// run specified gulp task
+if (!task) {
+  program.help()
+} else {
+  var gulp = require('gulp');
+  console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
+  require('../gulpfile');
+  gulp.start(task);
+}
 
 
 // https://github.com/tj/commander.js/pull/260
