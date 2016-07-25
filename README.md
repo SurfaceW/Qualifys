@@ -16,6 +16,7 @@
 ### Lint
 
 - `qualifys run lint` to start lint code
+- Here is a [guide](http://blog.surfacew.com/fe_tech/2016/07/25/Linter/) to make linting code live with Sublime Linter.
 
 
 
