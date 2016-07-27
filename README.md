@@ -11,7 +11,7 @@
 ### Test Intergated Development
 
 - `qualifys run test` to start test development with Karma, Mocha and Expect.js
-- `qualifys run coverage` to start generate a report of test coverage
+- `qualifys run coverage` to start generate a report of test coverage.
 
 ### Lint
 
