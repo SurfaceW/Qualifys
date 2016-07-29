@@ -32,9 +32,7 @@ program.parse(process.argv);
 var task = program.args[1];
 
 // run specified gulp task
-if (!task) {
-  program.help()
-} else {
+if (task) {
   var gulp = require('gulp');
   console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
   require('../gulpfile');
