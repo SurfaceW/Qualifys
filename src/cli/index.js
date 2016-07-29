@@ -10,8 +10,7 @@ var colors = require('colors/safe').setTheme({
 });
 
 program.on('--help', function() {
-  console.log(colors.info('Usage'));
-  console.log(colors.info('$ uxcore-tools run build'), 'compile src files to es3 standard')
+  console.log('Usage'.info);
 });
 
 
