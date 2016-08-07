@@ -15,9 +15,11 @@ var eslint = require('gulp-eslint');
 var webpack = require('webpack');
 var webpackCfg = require('../config/webpack.dev.js');
 
+var env = require('../lib/env');
 
 // Run Karma
 gulp.task('test', function (done) {
+  env.checkTester();
   var karmaBin = require.resolve('karma/bin/karma');
   var karmaConfig = path.join(__dirname, '../config/karma.phantomjs.conf.js');
   var args = [karmaBin, 'start', karmaConfig];

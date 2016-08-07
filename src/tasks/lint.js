@@ -15,7 +15,6 @@ colors.setTheme({
 // Run Eslinter
 gulp.task('lint', function(cb) {
   var eslintCfg = util.getEslintCfg();
-  console.log('===== START LINTING ====='.info);
   gulp.src([
     path.join(process.cwd(), './src/**/*.js'),
     path.join(process.cwd(), './demo/**/*.js')

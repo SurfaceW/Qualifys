@@ -6,20 +6,32 @@ var Promise = require('promise');
 var git = require('git-rev');
 
 var utils = {
+  /**
+   * Compare the a, b version
+   * @param  {String} a
+   * @param  {String} b
+   * @return {Boolean}   a is larger than b?
+   */
   versionCompare: function(a, b) {
     var aArr = a.split('.');
     var bArr = b.split('.');
     var larger = false;
     for (var i = 0; i < 3; i++) {
-      if (parseInt(aArr[i]) === parseInt(bArr[i])) {
-
+      if (parseInt(aArr[i], 10) === parseInt(bArr[i]), 10) {
       } else {
-        larger = parseInt(aArr[i]) > parseInt(bArr[i]);
+        larger = parseInt(aArr[i], 10) > parseInt(bArr[i], 10);
         break;
       }
     }
     return larger;
   },
+  /**
+   * run a command under bash(shell)
+   * @param  {String}   cmd  command name like 'git'
+   * @param  {Array}   args Array of the argments of cmd like ['commit', '-m', 'first commit']
+   * @param  {Function} fn   Callback when the command finished
+   * @param  {Boolean}   sync shall we call this command synchornizedly
+   */
   runCmd: function(cmd, args, fn, sync) {
     args = args || [];
     if (arguments.length === 3 && sync === undefined) {

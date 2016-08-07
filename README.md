@@ -13,6 +13,20 @@
 - `qualifys run test` to start test development with Karma, Mocha and Expect.js
 - `qualifys run coverage` to start generate a report of test coverage.
 
+> The test files should be organized in the following way:
+
+- specify a `index.js` under the `test/` directory to tell which test files are going to be run.
+
+```js
+/**
+ * only require other test-files here
+ * include all of the files with form of *.test.js
+ */
+
+ const testFiles = require.context('.', false, /\.test\.js$/);
+ testFiles.keys().forEach(testFiles);
+```
+
 ### Lint
 
 - `qualifys run lint` to start lint code

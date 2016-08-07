@@ -12,9 +12,7 @@ function getLoaderExclude(path) {
 
 module.exports = {
   cache: true,
-  entry: {
-    demo: './demo/index'
-  },
+  entry: [],
   output: {
     path: path.join(process.cwd(), './dist'),
     filename: "[name].js",

@@ -9,8 +9,6 @@ env.envCheck = function () {
   // if npm is not ready
   var fs = require('fs');
 
-  console.log('===== START CHECK ENV ====='.info);
-
   // if git is ready
   try {
     var status = fs.statSync(process.cwd() + '/.git');
@@ -32,15 +30,37 @@ env.envCheck = function () {
   }
 }
 
+var installDev = function (list) {
+  var info = require(process.cwd() + '/package.json');
+  list.forEach(function (name) {
+    console.log('Install lost devDependencies: '.info + name);
+    if (!info['devDependencies'] || !info['devDependencies'][name]) {
+      require('child_process').spawnSync('npm', ['install', '--save-dev', name, '-d'], { stdio: 'inherit' });
+    }
+  });
+}
+
+var linterDevList = [
+  'eslint',
+  'eslint-config-airbnb',
+  'eslint-plugin-import',
+  'eslint-plugin-react',
+  'eslint-plugin-jsx-a11y'
+];
+var testRunnerList = ['expect.js', 'babel-loader'];
+
+env.checkLinter = function () { installDev(linterDevList); };
+env.checkTester = function () { installDev(testRunnerList); };
+
 env.initNpm = function () {
   console.log('===== Initialized NPM ====='.info);
   require('child_process').spawnSync('npm', ['init'], { stdio: 'inherit' });
-}
+};
 
 env.initGit = function () {
   console.log('===== Initialized Git ====='.info);
   require('child_process').spawnSync('git', ['init'], { stdio: 'inherit' });
-}
+};
 
 function showErr(msg) {
   console.log(('===== ERROR ===== \n' + msg).warn);

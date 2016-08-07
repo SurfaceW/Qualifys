@@ -5,9 +5,6 @@
     "node": true
   },
   "installedESLint": true,
-  "plugins": [
-    "react"
-  ],
   "rules": {
     "global-require": "off",
     "import/no-unresolved": "off",

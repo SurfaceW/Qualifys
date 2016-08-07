@@ -5,7 +5,7 @@ var assign = require('object-assign');
 var webpackCfg = require('./webpack.dev.js');
 
 module.exports = function () {
-  var indexSpec = getFromCwd('tests/index.js');
+  var indexSpec = getFromCwd('test/index.js');
   var files = [
     require.resolve('console-polyfill/index.js'),
     require.resolve('es5-shim/es5-shim.js'),

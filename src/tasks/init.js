@@ -14,6 +14,6 @@ module.exports = {
   init: function () {
     runCmd('cp', ['-r', __dirname + '/../static/', process.cwd()], true);
     runCmd('mkdir', ['src', 'dist', 'test'], true);
-    console.log('===== success create project ====='.success);
+    console.log('===== successfully create project ====='.success);
   }
 }
