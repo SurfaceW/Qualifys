@@ -49,7 +49,11 @@ if (task && program.args[0] === 'run') {
   var gulp = require('gulp');
   console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
   require('../gulpfile');
-  gulp.start(task);
+  try {
+    gulp.start(task);
+  } catch (e) {
+    console.log('No such Command or Task Error'.warn);
+  }
 }
 
 

@@ -34,6 +34,9 @@ var utils = {
    */
   runCmd: function(cmd, args, fn, sync) {
     args = args || [];
+    if (typeof fn === 'boolean') {
+      sync = fn;
+    }
     var runner = require('child_process')[sync ? 'spawnSync' : 'spawn']
     (cmd, args, {
       // keep color
