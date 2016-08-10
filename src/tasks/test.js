@@ -23,7 +23,9 @@ gulp.task('test', function (done) {
   var karmaBin = require.resolve('karma/bin/karma');
   var karmaConfig = path.join(__dirname, '../config/karma.phantomjs.conf.js');
   var args = [karmaBin, 'start', karmaConfig];
-  util.runCmd('node', args, done);
+  util.runCmd('node', args, (code) => {
+    done(code);
+  });
 });
 
 // 测试覆盖率

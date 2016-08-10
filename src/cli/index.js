@@ -6,7 +6,8 @@ var program = require('commander');
 var runCmd = require('../util').runCmd;
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
-  warn: ['red']
+  warn: ['red'],
+  success: ['green']
 });
 
 program.on('--help', function() {
@@ -27,12 +28,24 @@ program
     }
   });
 
+program
+  .command('add [name]')
+  .action(function (name) {
+    var task = require('../tasks/add')[name];
+    if (task) {
+      task && task(name);
+      console.log(('Successfully add ' + name + ' file.').success);
+    } else {
+      console.log('No such command'.warn);
+    }
+  });
+
 program.parse(process.argv);
 
 var task = program.args[1];
 
 // run specified gulp task
-if (task) {
+if (task && program.args[0] === 'run') {
   var gulp = require('gulp');
   console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
   require('../gulpfile');

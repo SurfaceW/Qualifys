@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Run Linter to ensure every commit linting is correct
+npm run lint
+
+# if [[ $rcLint != 0 ]] ; then
+#   # lint error
+#   exit 0
+# fi
+
+# And execute the testsuite, while ignoring any output
+npm run test
+
+# $? is a shell variable which stores the return code from what we just ran
+rc=$?
+
+if [[ $rc != 0 ]] ; then
+    # A non-zero return code means an error occurred, so tell the user and exit
+    echo "The UNIT Test failed, please run unit test locally to revise the code."
+    echo "It won't push to the remote."
+    echo "If you inisit on pushing to the remote by ignoring UNIT test."
+    echo "You can use command: git push --no-verify"
+    exit $rc
+fi
+
+# Everything went OK so we can exit with a zero
+exit 0
