@@ -15,6 +15,11 @@ add['pre-commit'] = function () {
   runCmd('chmod', ['+x', process.cwd() + '/.git/hooks/pre-commit']);
 }
 
+add['pre-push'] = function () {
+  runCmd('cp', ['-r', __dirname + '/../hooks/pre-push', process.cwd() + '/.git/hooks'], true);
+  runCmd('chmod', ['+x', process.cwd() + '/.git/hooks/pre-push']);
+}
+
 add['commit-log'] = function () {
   console.log('install -g commitizen'.info);
   runCmd('npm', ['install', '-g', 'commitizen'], true);
