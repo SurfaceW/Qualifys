@@ -33,9 +33,9 @@ env.envCheck = function () {
 var installDev = function (list) {
   var info = require(process.cwd() + '/package.json');
   list.forEach(function (name) {
-    console.log('Install lost devDependencies: '.info + name);
     if (!info['devDependencies'] || !info['devDependencies'][name]) {
-      require('child_process').spawnSync('npm', ['install', '--save-dev', name, '-d'], { stdio: 'inherit' });
+      console.log('Install lost devDependencies: '.info + name);
+      require('child_process').spawnSync('npm', ['install', '--save-dev', name], { stdio: 'inherit' });
     }
   });
 }
@@ -47,7 +47,7 @@ var linterDevList = [
   'eslint-plugin-react',
   'eslint-plugin-jsx-a11y'
 ];
-var testRunnerList = ['expect.js', 'babel-loader'];
+var testRunnerList = ['expect.js', 'babel-loader', 'mocha'];
 
 env.checkLinter = function () { installDev(linterDevList); };
 env.checkTester = function () { installDev(testRunnerList); };
