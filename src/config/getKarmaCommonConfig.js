@@ -7,9 +7,14 @@ var webpackCfg = require('./webpack.dev.js');
 var data = require('../lib/data').data;
 
 module.exports = function () {
-  var content = JSON.parse(fs.readFileSync(process.cwd() + '/tmp.json', {
-    encoding: 'utf-8'
-  })) || {};
+  try {
+    var content = JSON.parse(fs.readFileSync(process.cwd() + '/tmp.json', {
+      encoding: 'utf-8'
+    })) || {};
+  } catch (err) {
+    content = {};
+  }
+
   var indexSpec = getFromCwd(content.filename || 'test/index.js');
   var files = [
     require.resolve('console-polyfill/index.js'),
@@ -18,7 +23,12 @@ module.exports = function () {
     indexSpec
     // content.filename ? require.resolve(getFromCwd(content.filename)) : indexSpec,
   ];
-  fs.unlinkSync(process.cwd() + '/tmp.json');
+  try {
+    fs.unlinkSync(process.cwd() + '/tmp.json');
+  } catch (err) {
+
+  }
+
   // webpackCfg.entry = [];
   var preprocessors = {};
   preprocessors[indexSpec] = ['webpack', 'sourcemap'];
