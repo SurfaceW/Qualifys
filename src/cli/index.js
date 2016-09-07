@@ -2,8 +2,10 @@
 
 'use strict';
 
+var fs = require('fs');
 var program = require('commander');
 var runCmd = require('../util').runCmd;
+var data = require('../lib/data').data;
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
   warn: ['red'],
@@ -42,14 +44,16 @@ program
 
 program
   .command('run [task]')
-  .description('run specified gulp task')
-  .option('-f, --file [filename]')
+  .option('-f, --file [filename]', "Which filt to use as entrance")
   .action(function (task, options) {
     var gulp = require('gulp');
     console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
     require('../gulpfile');
     try {
       // run specified gulp task
+      if (options.file) {
+        fs.writeFileSync(process.cwd() + '/tmp.json', JSON.stringify({filename: options.file}));
+      }
       gulp.start(task);
     } catch (e) {
       console.log('No such Command or Task Error'.warn);

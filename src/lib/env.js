@@ -1,5 +1,4 @@
 var env = {};
-var envData = {};
 
 env.envCheck = function () {
   var colors = require('colors').setTheme({
@@ -62,14 +61,6 @@ env.initGit = function () {
   console.log('===== Initialized Git ====='.info);
   require('child_process').spawnSync('git', ['init'], { stdio: 'inherit' });
 };
-
-env.setData = function (key, value) {
-  envData[key] = value;
-}
-
-env.getData = function (key) {
-  return envData[key];
-}
 
 function showErr(msg) {
   console.log(('===== ERROR ===== \n' + msg).warn);
