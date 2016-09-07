@@ -40,22 +40,23 @@ program
     }
   });
 
+program
+  .command('run [task]')
+  .description('run specified gulp task')
+  .option('-f, --file [filename]')
+  .action(function (task, options) {
+    var gulp = require('gulp');
+    console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
+    require('../gulpfile');
+    try {
+      // run specified gulp task
+      gulp.start(task);
+    } catch (e) {
+      console.log('No such Command or Task Error'.warn);
+    }
+  });
+
 program.parse(process.argv);
-
-var task = program.args[1];
-
-// run specified gulp task
-if (task && program.args[0] === 'run') {
-  var gulp = require('gulp');
-  console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
-  require('../gulpfile');
-  try {
-    gulp.start(task);
-  } catch (e) {
-    console.log('No such Command or Task Error'.warn);
-  }
-}
-
 
 // https://github.com/tj/commander.js/pull/260
 var proc = program.runningCommand;
