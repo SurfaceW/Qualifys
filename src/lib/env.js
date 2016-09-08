@@ -40,6 +40,7 @@ var installDev = function (list) {
   });
 }
 
+// @todo may cause conflicts when we have newer versions of packages
 var linterDevList = [
   'eslint',
   'eslint-config-airbnb',
@@ -47,7 +48,15 @@ var linterDevList = [
   'eslint-plugin-react',
   'eslint-plugin-jsx-a11y'
 ];
-var testRunnerList = ['expect.js', 'babel-loader', 'mocha'];
+
+// @todo may cause conflicts when we have newer versions of packages
+var testRunnerList = [
+  'expect.js',
+  'babel-loader',
+  'mocha',
+  'react-addons-test-utils',
+  'enzyme'
+];
 
 env.checkLinter = function () { installDev(linterDevList); };
 env.checkTester = function () { installDev(testRunnerList); };

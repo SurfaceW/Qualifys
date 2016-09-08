@@ -45,7 +45,11 @@ module.exports = function () {
     files: files,
     preprocessors: preprocessors,
     webpack: assign(webpackCfg, {
-      externals: {},
+      externals: {
+        'react/addons': true,
+        'react/lib/ReactContext': true,
+        'react/lib/ExecutionEnvironment': true
+      },
     }),
     webpackServer: {
       // please don't spam the console when running in karma!

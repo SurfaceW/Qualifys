@@ -51,7 +51,8 @@ module.exports = {
         // svg loader
         test: /\.svg$/,
         loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
-      }
+      },
+      { test: /\.json$/, loaders: ['json-loader'] }
     ]
   },
   resolve: {
@@ -64,9 +65,16 @@ module.exports = {
       path.join(__dirname, '../node_modules')
     ]
   },
+  alias: {
+    'react/lib/ExecutionEnvironment': 'empty/object',
+    'react/lib/ReactContext': 'empty/object',
+  },
   externals: {
     react: 'var React', // 相当于把全局的React作为模块的返回 module.exports = React;
-    'react-dom': 'var ReactDOM'
+    'react-dom': 'var ReactDOM',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+    'react/addons': true
   },
   plugins: [
     // SourceMap plugin will define process.env.NODE_ENV as development
