@@ -52,8 +52,8 @@ var linterDevList = [
 // @todo may cause conflicts when we have newer versions of packages
 var testRunnerList = [
   'expect.js',
+  'babel-core',
   'babel-loader',
-  'mocha',
   'react-addons-test-utils',
   'enzyme'
 ];

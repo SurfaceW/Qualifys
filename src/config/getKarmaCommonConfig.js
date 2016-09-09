@@ -15,13 +15,20 @@ module.exports = function () {
     content = {};
   }
 
-  var indexSpec = getFromCwd(content.filename || 'test/index.js');
+  var indexSpec
+
+  try {
+    fs.statSync('test/index.js');
+    indexSpec = getFromCwd(content.filename || 'test/index.js');
+  } catch (e) {
+    indexSpec = getFromCwd('test/*.js');
+  }
+
   var files = [
     require.resolve('console-polyfill/index.js'),
     require.resolve('es5-shim/es5-shim.js'),
     require.resolve('es5-shim/es5-sham.js'),
     indexSpec
-    // content.filename ? require.resolve(getFromCwd(content.filename)) : indexSpec,
   ];
   try {
     fs.unlinkSync(process.cwd() + '/tmp.json');

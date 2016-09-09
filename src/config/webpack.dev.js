@@ -22,7 +22,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js(x)*$/,
-        // npm modules 都不需要经过babel解析
+        // npm modules 都不需要经过 babel 解析
         // exclude: getLoaderExclude,
         include: [
           path.join(process.cwd(), './src'),
@@ -52,7 +52,10 @@ module.exports = {
         test: /\.svg$/,
         loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       },
-      { test: /\.json$/, loaders: ['json-loader'] }
+      {
+        test: /\.json$/,
+        loaders: ['json-loader']
+      }
     ]
   },
   resolve: {
