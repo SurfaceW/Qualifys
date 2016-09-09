@@ -9,11 +9,29 @@ var colors = require('colors').setTheme({
   info: ['blue']
 });
 
+var dirs = ['src', 'dist', 'test'];
+
 module.exports = {
   // initialize the whole project
   init: function () {
     runCmd('cp', ['-r', __dirname + '/../static/', process.cwd()], true);
-    runCmd('mkdir', ['src', 'dist', 'test'], true);
-    console.log('===== successfully create project ====='.success);
+
+    console.log('add .editorconfig template'.success);
+    console.log('add .eslintrc template'.success);
+    console.log('add .gitignore template'.success);
+    console.log('add .npmignore template'.success);
+
+    dirs.forEach(function (name) {
+      try {
+        if(!fs.statSync(name).isDirectory()) {
+          runCmd('mkdir', [name], true);
+          console.log(('create dir /' + name).success);
+        }
+      } catch (e) {
+        runCmd('mkdir', [name], true);
+        console.log(('create dir /' + name).success);
+      }
+    });
+    console.log('===== successfully ====='.success);
   }
 }

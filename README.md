@@ -1,6 +1,15 @@
 # Qualifys
 
-> Qualifys is a basic tool for Higher Qualify Code and Coding porcdures.
+Series of tools to focus on your React app's code Quality.
+
+## tl;dr
+
+```sh
+npm install -g qualifys
+
+cd myproject/
+qualifys init
+```
 
 ## Usage
 
