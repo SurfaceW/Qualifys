@@ -1,25 +1,16 @@
 #!/usr/bin/env node
-
 'use strict';
 
 var fs = require('fs');
 var program = require('commander');
 var runCmd = require('../util').runCmd;
-var data = require('../lib/data').data;
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
   warn: ['red'],
   success: ['green']
 });
 
-program.on('--help', function() {
-  console.log('Usage'.info);
-});
-
-
-/**
- * Initialize the project
- */
+// project initializer
 program
   .command('init')
   .action(function () {
@@ -30,6 +21,7 @@ program
     }
   });
 
+// project file generate
 program
   .command('add [name]')
   .action(function (name) {
@@ -42,6 +34,7 @@ program
     }
   });
 
+// QA tasks
 program
   .command('run [task]')
   .option('-f, --file [filename]', "Which filt to use as entrance")

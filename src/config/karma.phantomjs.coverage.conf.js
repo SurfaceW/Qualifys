@@ -7,7 +7,7 @@ var assign = require('object-assign');
 module.exports = function conf(config) {
   var commonConfig = getKarmaCommonConfig();
   var preprocessors = {};
-  preprocessors[commonConfig.files[commonConfig.files.length - 1]] = 'webpack'; // remove sourcemap
+  preprocessors[commonConfig.files[commonConfig.files.length - 1]] = ['webpack'];
   var reporters = ['progress', 'coverage'];
   var coverageReporter = {
     reporters: [
@@ -26,8 +26,8 @@ module.exports = function conf(config) {
   }
   commonConfig.webpack.module.postLoaders = [
     {
-      test: /\.jsx?$/,
-      include: /src\//,
+      test: /\.js$/,
+      include: require('path').resolve('src/'),
       loader: 'istanbul-instrumenter',
     },
   ];

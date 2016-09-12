@@ -4,7 +4,6 @@ var fs = require('fs');
 var getFromCwd = require('../util').getFromCwd;
 var assign = require('object-assign');
 var webpackCfg = require('./webpack.dev.js');
-var data = require('../lib/data').data;
 
 module.exports = function () {
   try {
@@ -26,10 +25,13 @@ module.exports = function () {
 
   var files = [
     require.resolve('console-polyfill/index.js'),
+    // babel-polyfill support promise etc. features
+    require.resolve('babel-polyfill/dist/polyfill.js'),
     require.resolve('es5-shim/es5-shim.js'),
     require.resolve('es5-shim/es5-sham.js'),
     indexSpec
   ];
+
   try {
     fs.unlinkSync(process.cwd() + '/tmp.json');
   } catch (err) {
