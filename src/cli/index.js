@@ -9,6 +9,18 @@ var colors = require('colors/safe').setTheme({
   warn: ['red'],
   success: ['green']
 });
+var updater = require('../tasks/update');
+
+program
+  .option('-v, --show-version', 'show help information.');
+
+
+// tool update
+program
+  .command('update')
+  .action(function () {
+    updater.update();
+  });
 
 // project initializer
 program
@@ -21,7 +33,7 @@ program
     }
   });
 
-// project file generate
+// project file generator
 program
   .command('add [name]')
   .action(function (name) {
@@ -54,6 +66,8 @@ program
   });
 
 program.parse(process.argv);
+
+if (program.version) updater.showVersion();
 
 // https://github.com/tj/commander.js/pull/260
 var proc = program.runningCommand;

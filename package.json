@@ -1,6 +1,6 @@
 {
   "name": "qualifys",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "development QA tools for React App",
   "preferGlobal": true,
   "main": "index.js",
