@@ -53,6 +53,11 @@ module.exports = {
         loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       },
       {
+        // less loader
+        test: /\.less$/,
+        loader: "style!css!less"
+      },
+      {
         test: /\.json$/,
         loaders: ['json-loader']
       }
