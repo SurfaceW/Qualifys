@@ -1,6 +1,6 @@
 {
   "name": "qualifys",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "development QA tools for React App",
   "preferGlobal": true,
   "main": "index.js",
@@ -55,7 +55,7 @@
     "happypack": "~2.1.1",
     "html-wiring": "~1.2.0",
     "ip": "~1.1.3",
-    "istanbul-instrumenter-loader": "~0.2.0",
+    "istanbul-instrumenter-loader": "^1.0.0",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "~1.0.1",
@@ -82,5 +82,6 @@
     "svg-react-loader": "^0.3.6",
     "webpack": "~1.x",
     "webpack-dev-middleware": "^1.6.1"
-  }
+  },
+  "devDependencies": {}
 }
