@@ -31,14 +31,14 @@ module.exports = {
         ],
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015-ie', 'stage-1'].map(function(item) {
+          presets: ['react', 'es2015-ie', 'stage-1'].map(function (item) {
             return require.resolve('babel-preset-' + item);
           }),
           plugins: [
             'transform-es3-member-expression-literals',
             'transform-es3-property-literals',
             'add-module-exports'
-          ].map(function(item) {
+          ].map(function (item) {
             return require.resolve('babel-plugin-' + item);
           }),
           cacheDirectory: true
@@ -91,7 +91,6 @@ module.exports = {
     }),
     new happypack({
       id: 'js'
-    }),
-  // new ProgressBarPlugin()
+    })
   ]
 };

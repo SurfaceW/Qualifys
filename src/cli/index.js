@@ -1,50 +1,52 @@
 #!/usr/bin/env node
-'use strict';
 
-var fs = require('fs');
-var program = require('commander');
-var runCmd = require('../util').runCmd;
+'use strict'
+
+var fs = require('fs')
+var program = require('commander')
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
   warn: ['red'],
   success: ['green']
-});
-var updater = require('../tasks/update');
+})
+var runCmd = require('../util').runCmd
+var updater = require('../tasks/update')
 
+// version and help info
 program
-  .option('-v, --show-version', 'show help information.');
-
+  .version(updater.getVersion())
+  .option('-v, --show-version', 'show help information.')
 
 // tool update
 program
   .command('update')
   .action(function () {
-    updater.update();
-  });
+    updater.update()
+  })
 
 // project initializer
 program
   .command('init')
   .action(function () {
     try {
-      require('../tasks/init').init();
+      require('../tasks/init').init()
     } catch (error) {
-      console.log(error.message.warn);
+      console.log(error.message.warn)
     }
-  });
+  })
 
 // project file generator
 program
   .command('add [name]')
   .action(function (name) {
-    var task = require('../tasks/add')[name];
+    var task = require('../tasks/add')[name]
     if (task) {
-      task && task(name);
-      console.log(('Successfully add ' + name + ' file.').success);
+      task && task(name)
+      console.log(('Successfully add ' + name + ' file.').success)
     } else {
-      console.log('No such command'.warn);
+      console.log('No such command'.warn)
     }
-  });
+  })
 
 // QA tasks
 program
@@ -52,28 +54,30 @@ program
   .option('-f, --file [filename]', "Which filt to use as entrance")
   .action(function (task, options) {
     var gulp = require('gulp');
-    console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info);
-    require('../gulpfile');
+    console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info)
+    require('../gulpfile')
     try {
       // run specified gulp task
       if (options.file) {
-        fs.writeFileSync(process.cwd() + '/tmp.json', JSON.stringify({filename: options.file}));
+        fs.writeFileSync(process.cwd() + '/tmp.json', JSON.stringify({ filename: options.file }))
       }
-      gulp.start(task);
+      gulp.start(task)
     } catch (e) {
-      console.log('No such Command or Task Error'.warn);
+      console.log('No such Command or Task Error'.warn)
     }
-  });
+  })
 
-program.parse(process.argv);
+program.parse(process.argv)
 
-if (program.version) updater.showVersion();
+if (program.version) {
+  updater.showVersion()
+}
 
 // https://github.com/tj/commander.js/pull/260
-var proc = program.runningCommand;
+var proc = program.runningCommand
 if (proc) {
-  proc.on('close', process.exit.bind(process));
-  proc.on('error', function() {
-    process.exit(1);
-  });
+  proc.on('close', process.exit.bind(process))
+  proc.on('error', function () {
+    process.exit(1)
+  })
 }

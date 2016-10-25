@@ -1,13 +1,12 @@
-var utils = require('../util');
-var packageInfo = require('../../package.json');
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
   warn: ['red'],
   success: ['green']
 });
+var utils = require('../util');
+var packageInfo = require('../../package.json');
 
 var runCmd = utils.runCmd;
-
 var updater = {};
 
 updater.update = function() {
@@ -15,10 +14,11 @@ updater.update = function() {
 }
 
 updater.showVersion = function() {
-  console.log(packageInfo.version.success);
+  console.log('Qualifys version: ' + updater.getVersion().success);
+}
+
+updater.getVersion = function () {
+  return packageInfo.version;
 }
 
 module.exports = updater;
-
-
-
