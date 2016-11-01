@@ -1,6 +1,6 @@
 # Qualifys
 
-Series of tools to focus on your React app's code quality.
+Series of tools to focus on your App's code quality.
 
 ## Installation
 
@@ -12,6 +12,12 @@ qualifys init
 ```
 
 You'll need to have **Node >= 4** on your machine. We recmommend you to use Node stable version as v4.4.x to use this QA tool.
+
+
+## Philosophy
+
+- **Only focus on Code quality**: we want to create this tool to make more react projects *testable*, *lintable*.
+- **Pick it up, and use it**: we make QA process easier, you only need to install the tool and then run commands to start your QA process. 
 
 ## Usage
 
@@ -66,11 +72,8 @@ By default, you have to specify a `index.js` under the `test/` directory to decl
 - `qualifys run lint` to start lint code and generate a lint report.
 - Here is a [guide](http://blog.surfacew.com/fe_tech/2016/07/25/Linter/) to make linting code live with your editor live.
 
+### Help
 
-## Philosophy
-
-- **Only focus on Code quality**: we want to create this tool to make more react projects *testable*, *lintable*.
-- **Pick it up, and use it**: we make QA process easier, you only need to install the tool and then run commands to start your QA process. 
-
+- `qualifys --help` to show the commands help.
 
 
