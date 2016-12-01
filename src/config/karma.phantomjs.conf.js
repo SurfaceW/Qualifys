@@ -3,6 +3,7 @@ var assign = require('object-assign');
 
 module.exports = function (config) {
   config.set(assign(karmaCommonConfig(), {
+    // use chrome for more detail info
     browsers: ['Chrome'],
     singleRun: true,
     phantomjsLauncher: {

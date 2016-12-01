@@ -26,10 +26,10 @@ program
 
 // project initializer
 program
-  .command('init')
-  .action(function () {
+  .command('init [name]')
+  .action(function (name) {
     try {
-      require('../tasks/init').init()
+      require('../tasks/init').init(name)
     } catch (error) {
       console.log(error.message.warn)
     }
