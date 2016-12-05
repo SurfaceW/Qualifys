@@ -6,9 +6,12 @@ var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 function getLoaderExclude(path) {
   var isNpmModule = !!path.match(/node_modules/);
-  console.log(isNpmModule);
   return isNpmModule;
 }
+
+var presets =  ['react', 'es2015-ie', 'stage-1', 'es2015', 'stage-2'].map(function (item) {
+  return require.resolve('babel-preset-' + item);
+});
 
 module.exports = {
   cache: true,
@@ -31,9 +34,7 @@ module.exports = {
         ],
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015-ie', 'stage-1'].map(function (item) {
-            return require.resolve('babel-preset-' + item);
-          }),
+          presets: presets,
           plugins: [
             'transform-es3-member-expression-literals',
             'transform-es3-property-literals',
@@ -50,7 +51,18 @@ module.exports = {
       {
         // svg loader
         test: /\.svg$/,
-        loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
+        loader: 'babel',
+        includePath: path.join(process.cwd()),
+        query: {
+          presets: presets,
+          cacheDirectory: true,
+          babelrc: false
+        }
+      },
+      {
+        // svg loader
+        test: /\.svg$/,
+        loader: 'svg2react'
       },
       {
         // less loader
