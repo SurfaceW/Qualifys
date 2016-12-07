@@ -21,12 +21,13 @@ module.exports = {
     filename: "[name].js",
     sourceMapFilename: "[name].js.map"
   },
+  noParse: [/node_modules\/sinon\//,], 
   module: {
     loaders: [
       {
         test: /\.js(x)*$/,
         // npm modules 都不需要经过 babel 解析
-        // exclude: getLoaderExclude,
+        exclude: getLoaderExclude,
         include: [
           path.join(process.cwd(), './src'),
           path.join(process.cwd(), './demo'),
@@ -52,7 +53,6 @@ module.exports = {
         // svg loader
         test: /\.svg$/,
         loader: 'babel',
-        includePath: path.join(process.cwd()),
         query: {
           presets: presets,
           cacheDirectory: true,
@@ -82,7 +82,7 @@ module.exports = {
   },
   resolveLoader: {
     root: [
-      path.join(__dirname, '../node_modules')
+      path.join(__dirname, '../../node_modules')
     ]
   },
   alias: {

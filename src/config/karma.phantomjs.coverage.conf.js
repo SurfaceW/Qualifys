@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var getFromCwd = require('../util').getFromCwd;
 var getKarmaCommonConfig = require('./getKarmaCommonConfig');
 var assign = require('object-assign');
@@ -27,7 +28,8 @@ module.exports = function conf(config) {
   commonConfig.webpack.module.postLoaders = [
     {
       test: /\.js$/,
-      include: require('path').resolve('src/'),
+      include: path.resolve('src/'),
+      includePath: path.join(process.cwd()),
       loader: 'istanbul-instrumenter',
     },
   ];
@@ -36,12 +38,7 @@ module.exports = function conf(config) {
     webpack: commonConfig.webpack,
     reporters: reporters,
     coverageReporter: coverageReporter,
-    browsers: ['PhantomJS'],
-    singleRun: true,
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered
-      // (useful if karma exits without killing phantom)
-      exitOnResourceError: true,
-    },
+    browsers: ['Chrome'],
+    singleRun: true
   }));
 };

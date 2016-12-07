@@ -52,10 +52,9 @@ var linterDevList = [
 // @todo may cause conflicts when we have newer versions of packages
 var testRunnerList = [
   'expect.js',
-  'babel-core',
-  'babel-loader',
   'react-addons-test-utils',
-  'enzyme'
+  'enzyme',
+  'react'
 ];
 
 env.checkLinter = function () { installDev(linterDevList); };
