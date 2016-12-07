@@ -1,10 +1,17 @@
 node_modules/
 .happypack/
 .deploy/
-coverage/
 design/
 .idea/
 docs/
+src/
+demo/
+abc.json
+abc-tingle.json
+favicon.ico
+gulpfile.js
+minify.js
+packLib.js
 
 # Packages #
 ############
