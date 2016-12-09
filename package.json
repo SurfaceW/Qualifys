@@ -1,6 +1,6 @@
 {
   "name": "qualifys",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "description": "development QA tools for App",
   "preferGlobal": true,
   "main": "index.js",
@@ -19,7 +19,7 @@
   "author": "surfacew@163.com",
   "license": "MIT",
   "bin": {
-    "qualifys": "./bin/qualifys.js"
+    "qf": "./bin/qualifys.js"
   },
   "repository": {
     "type": "git",
