@@ -25,6 +25,9 @@ var utils = {
     }
     return larger;
   },
+
+  // commands runner
+
   /**
    * run a command under bash(shell)
    * @param  {String}   cmd  command name like 'git'
@@ -48,6 +51,16 @@ var utils = {
       });
     }
   },
+
+  installPackage: function(pkg, version, global) {
+    var type = global === true ? '-g' : '--save';
+    type = global === 'dev' ? '--save-dev' : type;
+    version = version || '';
+    return utils.runCmd('npm', ['install', type, pkg + version]);
+  },
+
+
+  // getter functions
   getFromCwd: function() {
     var args = [].slice.call(arguments, 0);
     args.unshift(process.cwd());

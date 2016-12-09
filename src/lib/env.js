@@ -50,12 +50,7 @@ var linterDevList = [
 ];
 
 // @todo may cause conflicts when we have newer versions of packages
-var testRunnerList = [
-  'expect.js',
-  'react-addons-test-utils',
-  'enzyme',
-  'react'
-];
+var testRunnerList = [];
 
 env.checkLinter = function () { installDev(linterDevList); };
 env.checkTester = function () { installDev(testRunnerList); };

@@ -9,13 +9,17 @@ var colors = require('colors/safe').setTheme({
   warn: ['red'],
   success: ['green']
 })
-var runCmd = require('../util').runCmd
-var updater = require('../tasks/update')
+var runCmd = require('./util').runCmd
+var updater = require('./tasks/update')
 
 // version and help info
 program
   .version(updater.getVersion())
   .option('-v, --show-version', 'show help information.')
+
+if (program.version) {
+  updater.showVersion()
+}
 
 // tool update
 program
@@ -29,7 +33,7 @@ program
   .command('init [name]')
   .action(function (name) {
     try {
-      require('../tasks/init').init(name)
+      require('./tasks/init').init(name)
     } catch (error) {
       console.log(error.message.warn)
     }
@@ -39,7 +43,7 @@ program
 program
   .command('add [name]')
   .action(function (name) {
-    var task = require('../tasks/add')[name]
+    var task = require('./tasks/add')[name]
     if (task) {
       task && task(name)
       console.log(('Successfully add ' + name + ' file.').success)
@@ -55,7 +59,7 @@ program
   .action(function (task, options) {
     var gulp = require('gulp');
     console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info)
-    require('../gulpfile')
+    require('./gulpfile')
     try {
       // run specified gulp task
       if (options.file) {
@@ -68,10 +72,6 @@ program
   })
 
 program.parse(process.argv)
-
-if (program.version) {
-  updater.showVersion()
-}
 
 // https://github.com/tj/commander.js/pull/260
 var proc = program.runningCommand
