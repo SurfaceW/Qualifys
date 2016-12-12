@@ -4,6 +4,7 @@
 
 var fs = require('fs')
 var program = require('commander')
+var assign = require('lodash').assign;
 var colors = require('colors/safe').setTheme({
   info: ['blue'],
   warn: ['red'],
@@ -52,24 +53,47 @@ program
     }
   })
 
-// QA tasks
-program
-  .command('run [task]')
-  .option('-f, --file [filename]', "Which filt to use as entrance")
-  .action(function (task, options) {
-    var gulp = require('gulp');
-    console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info)
+// QA Tasks series
+
+var gulp = require('gulp');
+
+function runGulpTask(task, options) {
+  console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info)
+  var optionObj = options || {};
+  try {
     require('./gulpfile')
-    try {
-      // run specified gulp task
-      if (options.file) {
-        fs.writeFileSync(process.cwd() + '/tmp.json', JSON.stringify({ filename: options.file }))
+    optionObj.before && optionObj.before(options);
+    gulp.start(task);
+  } catch (e) {
+    console.log(('Task Error: ' + e.message).warn);
+  }
+  optionObj.after && optionObj.after(options);
+}
+
+// execute unit test
+program
+  .command('test')
+  .option('-f, --file [filename]', "Which filt to use as entrance")
+  .action(function(options) {
+    runGulpTask('test', {
+      before: function() {
+        // run specified gulp task
+        if (options.file) {
+          // save optional file name to local file
+          fs.writeFileSync(process.cwd() + '/tmp.json', JSON.stringify({ filename: options.file }))
+        }
       }
-      gulp.start(task)
-    } catch (e) {
-      console.log('No such Command or Task Error'.warn)
-    }
-  })
+    });
+  });
+
+program
+  .command('coverage')
+  .action(runGulpTask.bind(null, 'coverage'))
+
+
+program
+  .command('lint')
+  .action(runGulpTask.bind(null, 'lint'))
 
 program.parse(process.argv)
 
