@@ -74,8 +74,9 @@ function runGulpTask(task, options) {
 program
   .command('test')
   .option('-f, --file [filename]', "Which filt to use as entrance")
+  .option('-d, --debug', "Enable debug mode")
   .action(function(options) {
-    runGulpTask('test', {
+    runGulpTask(options.debug ? 'chrome' : 'phantomjs', {
       before: function() {
         // run specified gulp task
         if (options.file) {
