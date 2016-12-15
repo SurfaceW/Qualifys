@@ -4,7 +4,7 @@ var assign = require('object-assign');
 module.exports = function (config) {
   config.set(assign(karmaCommonConfig(), {
     // use chrome for more detail info
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: true,
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered

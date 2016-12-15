@@ -18,7 +18,7 @@ var webpackCfg = require('../config/webpack.dev.js');
 var env = require('../lib/env');
 
 // Run Karma
-gulp.task('test', function (done) {
+gulp.task('phantomjs', function (done) {
   env.checkTester();
   var karmaBin = require.resolve('karma/bin/karma');
   var karmaConfig = path.join(__dirname, '../config/karma.phantomjs.conf.js');
@@ -57,7 +57,7 @@ gulp.task('browsers', function (done) {
 });
 
 // only start chrome browser
-gulp.task('chrome', function (done) {
+gulp.task('test', function (done) {
   var karmaBin = require.resolve('karma/bin/karma');
   var karmaConfig = path.join(__dirname, '../config/karma.chrome.conf.js');
   var args = [karmaBin, 'start', karmaConfig];

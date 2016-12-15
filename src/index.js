@@ -40,7 +40,7 @@ program
     }
   })
 
-// project file generator
+// project file generation
 program
   .command('add [name]')
   .action(function (name) {

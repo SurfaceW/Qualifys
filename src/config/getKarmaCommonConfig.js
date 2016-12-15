@@ -14,7 +14,7 @@ module.exports = function () {
     content = {};
   }
 
-  var indexSpec
+  var indexSpec = '';
 
   try {
     fs.statSync('test/index.js');
@@ -43,6 +43,8 @@ module.exports = function () {
   preprocessors[indexSpec] = ['webpack', 'sourcemap'];
   return {
     reporters: ['mocha'],
+    autoWatch: true,
+    browserDisconnectTimeout: 20000,
     client: {
       mocha: {
         // change Karma's debug.html to the mocha web reporter
