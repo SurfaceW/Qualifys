@@ -25,6 +25,7 @@ if (program.version) {
 // tool update
 program
   .command('update')
+  .alias('up')
   .action(function () {
     updater.update()
   })
@@ -73,6 +74,7 @@ function runGulpTask(task, options) {
 // execute unit test
 program
   .command('test')
+  .alias('ts')
   .option('-f, --file [filename]', "Which filt to use as entrance")
   .option('-d, --debug', "Enable debug mode")
   .action(function(options) {
@@ -90,6 +92,7 @@ program
 
 program
   .command('coverage')
+  .alias('cov')
   .action(runGulpTask.bind(null, 'coverage'))
 
 
