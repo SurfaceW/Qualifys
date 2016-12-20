@@ -20,8 +20,10 @@ module.exports = function () {
     fs.statSync('test/index.js');
     indexSpec = getFromCwd(content.filename || 'test/index.js');
   } catch (e) {
-    indexSpec = getFromCwd('test/*.js');
+    indexSpec = getFromCwd(content.filename || 'tests/*.spec.js');
   }
+
+  console.log('TEST ENTRY PATH: ' + indexSpec);
 
   var files = [
     require.resolve('console-polyfill/index.js'),

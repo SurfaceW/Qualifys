@@ -58,7 +58,7 @@ program
 var gulp = require('gulp');
 
 function runGulpTask(task, options) {
-  console.log(('===== RUN TASK ' + task.toUpperCase() + ' =====').info)
+  console.log(('===== RUN TASK ' + (options.taskPrefix || '') + task.toUpperCase() + ' =====').info)
   var optionObj = options || {};
   try {
     require('./gulpfile')
@@ -77,6 +77,7 @@ program
   .option('-d, --debug', "Enable debug mode")
   .action(function(options) {
     runGulpTask(options.debug ? 'chrome' : 'phantomjs', {
+      taskPrefix: 'TEST based on ',
       before: function() {
         // run specified gulp task
         if (options.file) {
