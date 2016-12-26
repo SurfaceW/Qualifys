@@ -16,6 +16,7 @@ var updater = require('./tasks/update')
 // version and help info
 program
   .version(updater.getVersion())
+  .usage('<command> [options]')
   .option('-v, --show-version', 'show help information.')
 
 if (program.version) {

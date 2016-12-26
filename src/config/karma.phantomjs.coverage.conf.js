@@ -18,6 +18,7 @@ module.exports = function conf(config) {
       },
       {
         type: 'text',
+        subdir: '.',
       },
     ],
     dir: getFromCwd('coverage/'),
@@ -28,8 +29,7 @@ module.exports = function conf(config) {
   commonConfig.webpack.module.postLoaders = [
     {
       test: /\.js$/,
-      include: path.resolve('src/'),
-      includePath: path.join(process.cwd()),
+      include: [path.join(process.cwd(), './src')],
       loader: 'istanbul-instrumenter',
     },
   ];
@@ -38,7 +38,12 @@ module.exports = function conf(config) {
     webpack: commonConfig.webpack,
     reporters: reporters,
     coverageReporter: coverageReporter,
-    browsers: ['Chrome'],
-    singleRun: true
+    browsers: ['PhantomJS'],
+    singleRun: true,
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered
+      // (useful if karma exits without killing phantom)
+      exitOnResourceError: true,
+    },
   }));
 };

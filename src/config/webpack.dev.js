@@ -21,7 +21,7 @@ module.exports = {
     filename: "[name].js",
     sourceMapFilename: "[name].js.map"
   },
-  noParse: [/node_modules\/sinon\//,], 
+  noParse: [/node_modules\/sinon\//,],
   module: {
     loaders: [
       {
@@ -45,9 +45,7 @@ module.exports = {
           }),
           cacheDirectory: true
         },
-        happy: {
-          id: 'js'
-        }
+        happy: { id: 'js' }
       },
       {
         // svg loader
@@ -76,6 +74,7 @@ module.exports = {
     ]
   },
   resolve: {
+    extensions: ['', '.web.ts', '.web.tsx', '.web.js', '.web.jsx', '.ts', '.tsx', '.js', '.jsx'],
     root: [
       path.join(process.cwd(), './node_modules')
     ]

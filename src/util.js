@@ -52,6 +52,7 @@ var utils = {
     }
   },
 
+  // package installer
   installPackage: function(pkg, version, global) {
     var type = global === true ? '-g' : '--save';
     type = global === 'dev' ? '--save-dev' : type;
