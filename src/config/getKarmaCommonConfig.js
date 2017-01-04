@@ -75,6 +75,11 @@ module.exports = function () {
         'react/lib/ExecutionEnvironment': true
       },
     }),
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      stats: 'errors-only'
+    },
     webpackServer: {
       // please don't spam the console when running in karma!
       noInfo: true,
