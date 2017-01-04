@@ -26,13 +26,22 @@ module.exports = function () {
   console.log('TEST ENTRY PATH: ' + indexSpec);
 
   var files = [
+    // polyfill console
     require.resolve('console-polyfill/index.js'),
     // babel-polyfill support promise etc. features
     require.resolve('babel-polyfill/dist/polyfill.js'),
     require.resolve('es5-shim/es5-shim.js'),
     require.resolve('es5-shim/es5-sham.js'),
+
+    // inject React and ReactDOM to window object
+    require.resolve('react/dist/react.js'),
+    require.resolve('react-dom/dist/react-dom.js'),
+
+    // other possible related dependencies
     "https://g.alicdn.com/platform/c/rangy/1.3.0/rangy-core.min.js",
     "https://g.alicdn.com/platform/c/tinymce/4.3.12/tinymce.min.js",
+
+    // test files entry
     indexSpec
   ];
 
