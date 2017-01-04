@@ -74,7 +74,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.web.ts', '.web.tsx', '.web.js', '.web.jsx', '.ts', '.tsx', '.js', '.jsx'],
     root: [
       path.join(process.cwd(), './node_modules')
     ]

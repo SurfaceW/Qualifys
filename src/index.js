@@ -12,6 +12,7 @@ var colors = require('colors/safe').setTheme({
 })
 var runCmd = require('./util').runCmd
 var updater = require('./tasks/update')
+var printHelp = require('./lib/help')
 
 // version and help info
 program
@@ -22,6 +23,12 @@ program
 if (program.version) {
   updater.showVersion()
 }
+
+// help method
+program
+  .command('help')
+  .action(printHelp);
+
 
 // tool update
 program
