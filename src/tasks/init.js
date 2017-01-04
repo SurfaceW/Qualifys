@@ -48,7 +48,12 @@ var initTestLib = function() {
         install(stdLib, '', 'dev');
       } else if (item.libname === 'no' || item.libname === 'n') {
       } else if (typeof item.libname === 'string') {
-        install(item.libname, '', 'dev');
+        if (item.libname === 'sinon') {
+          // sinon require special version specified
+          install(item.libname, '@next', 'dev');
+        } else {
+          install(item.libname, '', 'dev');
+        }
       }
     });
     if (results[2].libname === 'enzyme') {
@@ -59,7 +64,7 @@ var initTestLib = function() {
     }
     showSuccess();
   });
-  
+
 }
 
 var operationsMap = {
