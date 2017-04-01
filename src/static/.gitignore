@@ -34,3 +34,8 @@ docs/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Build List
+######################
+build/
+dist/

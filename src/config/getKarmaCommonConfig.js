@@ -14,15 +14,7 @@ module.exports = function () {
     content = {};
   }
 
-  var indexSpec = '';
-
-  try {
-    fs.statSync('test/index.js');
-    indexSpec = getFromCwd(content.filename || 'test/index.js');
-  } catch (e) {
-    indexSpec = getFromCwd(content.filename || 'tests/*.spec.js');
-  }
-
+  var indexSpec = getFromCwd(content.filename || 'test/*.spec.js');
   console.log('TEST ENTRY PATH: ' + indexSpec);
 
   var files = [

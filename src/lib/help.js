@@ -19,8 +19,9 @@ module.exports = function printHelp() {
     '==== TestRunner ===='.info,
     'qf test             run unit test based on test/index.js',
     'qf test -f FILE     run unit test based on file path',
+    'qf cov              run unit test to generate coverage report',
     '====== Linter ======'.info,
-    'qf lint             run linter to /src/*.js'
+    'qf lint             run linter from /src/*.js'
   ].join('\n');
   console.log(helperStr);
 }

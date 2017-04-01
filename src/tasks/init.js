@@ -50,7 +50,7 @@ var initTestLib = function() {
       } else if (typeof item.libname === 'string') {
         if (item.libname === 'sinon') {
           // sinon require special version specified
-          install(item.libname, '@next', 'dev');
+          install(item.libname, '@^2.0.0', 'dev');
         } else {
           install(item.libname, '', 'dev');
         }
@@ -97,6 +97,7 @@ module.exports = {
           console.log(('create dir /' + name).success);
         }
       });
+      operationsMap.testlib();
     }
   }
 }
