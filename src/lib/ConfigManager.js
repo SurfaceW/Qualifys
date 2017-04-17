@@ -100,7 +100,7 @@ module.exports = class ConfigManager {
   }
 
   _getExternalFiles() {
-    return this.externalFiles;
+    return this.externalFiles || [];
   }
 
   _getKarmaCommonConfig() {

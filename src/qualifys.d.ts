@@ -27,17 +27,30 @@ export class TaskManager {
 }
 
 interface qfConfigs {
-
+  loaders,
+  noParse,
+  sourceDirs,
+  esPresets,
+  happyPackLoaders,
+  externals,
+  externalFiles,
+  testSpecFiles
 }
 
 export class ConfigManager {
   constructor(configs: qfConfigs, webpack);
 
-  private _getKarmaCommonConfig(): object;
-  private _getWebpackConfig(): object;
+  private _getProcessPath(extra: string): string;
+  private _getDirnamePath(extra: string): string;
 
-  getChromeEnvConfig(): object;
-  getPhantomjsEnvConfig(): object;
+  private _getKarmaCommonConfig(): object;
+  private _getWebpackCommonConfig(): object;
+
+  private _getTestFiles(): string[];
+  private _getExternalFiles(): string[];
+
+  getChromeEnvConfig(): () => void;
+  getPhantomJSEnvConfig(): () => void;
 }
 
 export class HelpCenter {
