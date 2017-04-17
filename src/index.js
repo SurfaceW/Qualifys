@@ -1,34 +1,13 @@
 #!/usr/bin/env node
 
 'use strict'
+const commander = require('commander');
+const TaskManager = require('./lib/TaskManager');
+const taskManager = new TaskManager([
 
-var fs = require('fs')
-var program = require('commander')
-var assign = require('lodash').assign;
-var colors = require('colors/safe').setTheme({
-  info: ['blue'],
-  warn: ['red'],
-  success: ['green']
-})
-var runCmd = require('./util').runCmd
-var updater = require('./tasks/update')
-var printHelp = require('./lib/help')
+], commander);
 
-// version and help info
-program
-  .version(updater.getVersion())
-  .usage('<command> [options]')
-  .option('-v, --show-version', 'show help information.')
-
-if (program.version) {
-  updater.showVersion()
-}
-
-// help method
-program
-  .command('help')
-  .action(printHelp);
-
+taskManager.init();
 
 // tool update
 program
@@ -102,14 +81,3 @@ program
   .command('coverage')
   .alias('cov')
   .action(runGulpTask.bind(null, 'coverage'))
-
-program.parse(process.argv)
-
-// https://github.com/tj/commander.js/pull/260
-var proc = program.runningCommand
-if (proc) {
-  proc.on('close', process.exit.bind(process))
-  proc.on('error', function () {
-    process.exit(1)
-  })
-}

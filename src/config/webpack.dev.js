@@ -8,7 +8,7 @@ function getLoaderExclude(path) {
   return isNpmModule;
 }
 
-var presets =  ['react', 'es2015-ie', 'stage-1', 'es2015', 'stage-2'].map(function (item) {
+var presets = ['react', 'es2015-ie', 'stage-1', 'es2015', 'stage-2'].map(function (item) {
   return require.resolve('babel-preset-' + item);
 });
 
@@ -20,7 +20,6 @@ module.exports = {
     filename: "[name].js",
     sourceMapFilename: "[name].js.map"
   },
-  noParse: [/node_modules\/sinon\//,],
   module: {
     loaders: [
       {

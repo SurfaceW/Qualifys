@@ -2,7 +2,12 @@
 // Project: Qualifys
 // Definitions by: surfacew surfacew@163.com
 
+//  @see http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html
 interface Observable {};
+// @see https://www.npmjs.com/package/commander
+interface Commander {};
+// https://webpack.js.org/concepts/
+interface Webpack {};
 
 declare enum TESTER_TYPE {
   'normal',
@@ -11,16 +16,23 @@ declare enum TESTER_TYPE {
 }
 
 export class TaskManager {
-  constructor(runners: Runner[]);
+  private runners: Runner[];
+  private runnerMap: { [runnerId: string]: Runner };
 
+  constructor(runners: Runner[], commander: Commander);
   private runTaskRunner(taskName: string): void;
-  private registerRunner(runners: Runner[]): void;
-  private registerRunner(runner: Runner): void;
 
   init(): void;
+  getRunner(name: string): Runner;
+}
+
+interface qfConfigs {
+
 }
 
 export class ConfigManager {
+  constructor(configs: qfConfigs, webpack);
+
   private _getKarmaCommonConfig(): object;
   private _getWebpackConfig(): object;
 
@@ -29,7 +41,7 @@ export class ConfigManager {
 }
 
 export class HelpCenter {
-  printGuide(): void;
+  printHelp(): void;
 }
 
 // Env support offering helpful information about the dev env
@@ -47,11 +59,24 @@ export class Env {
   checkLatestVersion(): boolean;
 }
 
+interface runnerConf {
+  name: string;
+  commandAlias: string | Array<string>;
+  description: string;
+  options: Array<string>;
+}
+
 export class Runner {
   readonly name: string;
   readonly runnerId: string;
 
-  run(type: string): Promise<any>;
+  private commandAlias: string;
+  private description: string;
+  private options: [string, string];
+
+  constructor(config: runnerConf);
+
+  run(type: string, options: object): Promise<any>;
   stop(): Promise<any>;
 }
 
