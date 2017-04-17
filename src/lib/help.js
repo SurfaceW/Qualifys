@@ -1,27 +1,21 @@
-var colors = require('colors/safe').setTheme({
-  info: ['blue'],
-  warn: ['red'],
-  success: ['green']
-})
+const { log } = require('../util');
+const helperStr = [
+  'help doc see https://github.com/SurfaceW/Qualifys',
+  'qf help             show help documentation',
+  'qf update           update Qualifys to the recent version',
+  '==== Initializer ===',
+  'qf init             init Qualifys from a scratch',
+  '==== TestRunner ====',
+  'qf test             run unit test based on test/index.js',
+  'qf test -f FILE     run unit test based on file path',
+  'qf test --debug     run unit test in a debug mode',
+  'qf cov              run unit test to generate coverage report',
+].join('\n');
 
-module.exports = function printHelp() {
-  var helperStr = [
-    'help doc see https://github.com/SurfaceW/Qualifys'.success,
-    'qf help             show help documentation',
-    'qf update           update Qualifys to the recent version',
-    '==== Initializer ==='.info,
-    'qf init             init Qualifys from a scratch',
-    'qf init gitignore   add .gitignore to the project',
-    'qf init npmignore   add .npmignore to the project',
-    'qf init eslintrc    add .eslintrc to the project',
-    'qf init test        add test directory to the project',
-    'qf init testlib     add test library to the project',
-    '==== TestRunner ===='.info,
-    'qf test             run unit test based on test/index.js',
-    'qf test -f FILE     run unit test based on file path',
-    'qf cov              run unit test to generate coverage report',
-    '====== Linter ======'.info,
-    'qf lint             run linter from /src/*.js'
-  ].join('\n');
-  console.log(helperStr);
+class HelpCenter {
+  printHelp() {
+    log(helperStr);
+  }
 }
+
+module.exports = new HelpCenter();

@@ -3,6 +3,9 @@ const path = require('path');
 const { exec, execSync } = require('child_process');
 const { Observable } = require('rxjs');
 const colors = require('colors');
+// https://www.npmjs.com/package/lru-cache
+const LRUCache = require('lru-cache');
+
 
 const COLOR_MAP = {
   'info': 'blue',
@@ -10,6 +13,10 @@ const COLOR_MAP = {
   'error': 'red',
   'success': 'green'
 };
+const cache = new LRUCache({
+  max: 50,
+  maxAge: 100 * 60 * 60
+});
 
 const readFileAsObservable = Observable.bindNodeCallback(fs.readFileSync);
 const execAsObservable = Observable.bindNodeCallback(exec);
@@ -52,13 +59,11 @@ const utils = {
     timeout: 10000,
     encoding: 'utf-8'
   }) => {
-    return Observable.fromPromise(new Promise((resolve, reject) => {
-      try {
-        resolve(execSync(cmd, options));
-      } catch (e) {
-        reject(e.error || 'execSync error, please check the command.');
-      }
-    }));
+    try {
+      return execSync(cmd, options);
+    } catch (e) {
+      return e.error || 'execSync error, please check the command.';
+    }
   },
 
   // package installer
@@ -75,9 +80,20 @@ const utils = {
     return path.join.apply(path, args);
   },
 
-  getPkgStream: function() {
-    return readFileAsObservable('package.json', { encoding: 'utf-8' })
-      .map(v => JSON.parse(v));
+  getFileSync: (f, isJson) => {
+    f = '' + f;
+    if (cache.has(f)) return cache.get(f);
+    let res = '';
+    try {
+      cache.set(f, fs.readFileSync(f, 'utf-8'));
+    } catch(e) {
+      throw new Error(e);
+    }
+    return isJson ? JSON.parse(cache.get(f)) : cache.get(f);
+  },
+
+  getFileStream: function(f) {
+    return readFileAsObservable(f || 'package.json', { encoding: 'utf-8' });
   }
 }
 

@@ -3,6 +3,7 @@ const {
   log, info, warn, error, success,
   versionCompare,
   exec, execSync,
+  getFileSync,
   getFromCwd,
   getPkgStream
 } = require('../src/util');
@@ -31,15 +32,16 @@ describe('Exec / ExecSync', () => {
     });
   });
 
-  it('should execSync command correctly', (done) => {
-    execSync('echo 2').subscribe((r) => {
-      expect(r.trim()).to.be('2');
-      done();
-    });
+  it('should execSync command correctly', () => {
+    expect(execSync('echo 2').trim()).to.be('2');
   });
 
   it('should correctly get current cwd', () => {
     expect(getFromCwd()).to.be.a('string');
-  })
+  });
 
+  it('getFile sync', () => {
+    expect(getFileSync('package.json', true)).to.be.an('object');
+    expect(getFileSync('package.json')).to.be.a('string');
+  });
 });

@@ -34,14 +34,16 @@ export class HelpCenter {
 
 // Env support offering helpful information about the dev env
 export class Env {
+  readonly name: string;
   readonly version: string;
   readonly cwd: string;
+
+  constructor(config: object);
 
   printVersion(): void;
 
   checkIfNpmExist(): boolean;
   checkIfGitExist(): boolean;
-  checkTestDependencies(): boolean;
   checkLatestVersion(): boolean;
 }
 
