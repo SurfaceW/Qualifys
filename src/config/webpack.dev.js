@@ -2,7 +2,6 @@ var fs = require('fs');
 var webpack = require('webpack');
 var path = require('path');
 var happypack = require('happypack');
-var ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 function getLoaderExclude(path) {
   var isNpmModule = !!path.match(/node_modules/);

@@ -103,11 +103,6 @@ program
   .alias('cov')
   .action(runGulpTask.bind(null, 'coverage'))
 
-
-program
-  .command('lint')
-  .action(runGulpTask.bind(null, 'lint'))
-
 program.parse(process.argv)
 
 // https://github.com/tj/commander.js/pull/260

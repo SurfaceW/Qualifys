@@ -6,12 +6,9 @@ design/
 docs/
 src/
 demo/
-abc.json
-abc-tingle.json
-favicon.ico
-gulpfile.js
-minify.js
-packLib.js
+
+*.log.*
+
 
 # Packages #
 ############
