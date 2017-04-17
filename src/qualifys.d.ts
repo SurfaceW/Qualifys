@@ -2,6 +2,8 @@
 // Project: Qualifys
 // Definitions by: surfacew surfacew@163.com
 
+interface Observable {};
+
 declare enum TESTER_TYPE {
   'normal',
   'debug',
@@ -72,14 +74,21 @@ export class UpgradeRunner extends Runner {
 
 export module utils {
   function log(content: string, headLine: boolean): void;
+  function info(content: string, headLine: boolean): void;
   function warn(content: string, headLine: boolean): void;
   function error(content: string, headLine: boolean): void;
   function success(content: string, headLine: boolean): void;
+
+  function getFromCwd(): string;
+  function getPkgStream(): Observable;
+
   // is a larger than b?
   function versionCompare(a: string, b: string): boolean;
-  function runCmd(cmd: string, args: Array<string>, async: boolean): Promise<any>;
-  function installPackage(pkg: string, version: string, globalInstall: boolean): Promise<any>;
-  function getFromCwd(): string;
-  function getPkg(): { [packageProp: string]: any };
+
+  // options see https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback
+  function exec(cmd: string, options: object): Observable;
+  function execSync(cmd: string, options: object): Observable;
+
+  function installPackage(pkg: string, version: string, installationType: boolean | string): Observable;
 }
 

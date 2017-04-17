@@ -1,72 +1,83 @@
-var file = require('html-wiring');
-var path = require('path');
-var pkg = JSON.parse(file.readFileAsString('package.json'));
-var eslintCfg = JSON.parse(file.readFileAsString(__dirname + '/config/eslintrc.json'));
+const fs = require('fs');
+const path = require('path');
+const { exec, execSync } = require('child_process');
+const { Observable } = require('rxjs');
+const colors = require('colors');
 
-var utils = {
-  /**
-   * Compare the a, b version
-   * @param  {String} a
-   * @param  {String} b
-   * @return {Boolean}   a is larger than b?
-   */
-  versionCompare: function(a, b) {
-    var aArr = a.split('.');
-    var bArr = b.split('.');
-    var larger = false;
-    for (var i = 0; i < 3; i++) {
-      if (parseInt(aArr[i], 10) === parseInt(bArr[i]), 10) {
-      } else {
-        larger = parseInt(aArr[i], 10) > parseInt(bArr[i], 10);
-        break;
-      }
-    }
-    return larger;
+const COLOR_MAP = {
+  'info': 'blue',
+  'warn': 'yellow',
+  'error': 'red',
+  'success': 'green'
+};
+
+const readFileAsObservable = Observable.bindNodeCallback(fs.readFileSync);
+const execAsObservable = Observable.bindNodeCallback(exec);
+const addHeadLine = (c, headline) => headline ? '========== ' + c + ' ==========' : c;
+const logWithType = (c, type) => {
+  if (!type) {
+    console.log(c);
+  } else {
+    console.log(colors[COLOR_MAP[type]](c));
+  }
+}
+
+const utils = {
+  // logger series
+  log: (content, headline) => {
+    logWithType(addHeadLine(content, headline), null);
+  },
+  info: (content, headline) => {
+    logWithType(addHeadLine(content, headline), 'info');
+  },
+  warn: (content, headline) => {
+    logWithType(addHeadLine(content, headline), 'warn');
+  },
+  error: (content, headline) => {
+    logWithType(addHeadLine(content, headline), 'error');
+  },
+  success: (content, headline) => {
+    logWithType(addHeadLine(content, headline), 'success');
+  },
+  exec: (cmd = '', options = {
+    // keep color
+    stdio: 'inherit',
+    encoding: 'utf-8',
+    timeout: 10000
+  }) => {
+    return execAsObservable(cmd, options);
   },
 
-  // commands runner
-
-  /**
-   * run a command under bash(shell)
-   * @param  {String}   cmd  command name like 'git'
-   * @param  {Array}   args Array of the argments of cmd like ['commit', '-m', 'first commit']
-   * @param  {Function} fn   Callback when the command finished
-   * @param  {Boolean}   sync shall we call this command synchornizedly
-   */
-  runCmd: function(cmd, args, fn, sync) {
-    args = args || [];
-    if (typeof fn === 'boolean') {
-      sync = fn;
-    }
-    var runner = require('child_process')[sync ? 'spawnSync' : 'spawn']
-    (cmd, args, {
-      // keep color
-      stdio: 'inherit',
-    });
-    if (!sync) {
-      runner.on('close', function (code) {
-        if (typeof fn === 'function') { fn(code); }
-      });
-    }
+  execSync: (cmd = '', options = {
+    timeout: 10000,
+    encoding: 'utf-8'
+  }) => {
+    return Observable.fromPromise(new Promise((resolve, reject) => {
+      try {
+        resolve(execSync(cmd, options));
+      } catch (e) {
+        reject(e.error || 'execSync error, please check the command.');
+      }
+    }));
   },
 
   // package installer
-  installPackage: function(pkg, version, global) {
-    var type = global === true ? '-g' : '--save';
-    type = global === 'dev' ? '--save-dev' : type;
+  installPackage: function(pkg, version, installationType) {
+    let type = installationType ? '-g' : '--save';
+    type = installationType === 'dev' ? '--save-dev' : type;
     version = version || '';
-    return utils.runCmd('npm', ['install', type, pkg + version]);
+    return utils.execSync('npm install ', [type, pkg + version].join(' '));
   },
 
-
-  // getter functions
   getFromCwd: function() {
-    var args = [].slice.call(arguments, 0);
+    const args = [].slice.call(arguments, 0);
     args.unshift(process.cwd());
     return path.join.apply(path, args);
   },
-  getPkg: function() {
-    return pkg;
+
+  getPkgStream: function() {
+    return readFileAsObservable('package.json', { encoding: 'utf-8' })
+      .map(v => JSON.parse(v));
   }
 }
 
