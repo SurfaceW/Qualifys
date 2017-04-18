@@ -14,10 +14,10 @@ module.exports = class TaskManager {
     this.commander.version(env.version);
     this.runners.forEach(r => {
       let c = this.commander;
-      c = c.command(runner.name);
+      c = c.command(r.name);
       if (r.commandAlias) c.alias(r.commandAlias);
       if (r.description) c.description(r.description);
-      if (r.options) c.option(r.options);
+      // if (r.options) c.option(r.options);
       c.action(r.run.bind(r));
     });
     this.commander.on('--help', helperFn);

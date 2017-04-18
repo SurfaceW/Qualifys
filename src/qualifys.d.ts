@@ -89,17 +89,16 @@ export class Runner {
 
   constructor(config: runnerConf);
 
+  logStart(): void;
+  logSuccess(): void;
+
   run(type: string, options: object): Promise<any>;
   stop(): Promise<any>;
 }
 
 export declare class InitialRunner extends Runner {
-  initGit(): Promise<any>;
-  initNpm(): Promise<any>;
-
   initialTest(): Promise<any>;
   initialConfigs(): Promise<any>;
-  initialDir(): Promise<any>;
 }
 
 export class TestRunner extends Runner {
