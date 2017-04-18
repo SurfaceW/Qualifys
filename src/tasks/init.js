@@ -2,27 +2,6 @@
  * Project Initializer
  */
 
-var prompt = require('prompt');
-var runCmd = require('../util').runCmd;
-var install = require('../util').installPackage;
-var fs = require('fs');
-var colors = require('colors').setTheme({
-  success: ['green'],
-  info: ['blue'],
-  warn: ['red']
-});
-var async = require('async');
-var showError = function(err) { console.log(err.message.warn) }
-var showSuccess = function() { console.log('==== RUN TASK SUCCESSFULLY ===='.success) }
-var showTestLibOpt = function() {
-  console.log('Enter for yes, enter \'no\' for nothing, enter a lib name to install your test lib.');
-}
-var copy = function(dist) {
-  return function() {
-    runCmd('cp', ['-r', __dirname + '/../static/' + dist, process.cwd()], true)
-    console.log(('add ' + (dist ? dist : 'all') + ' template').success)
-  }
-}
 var getTestUitlsFn = function(stdLib, libType) {
   return function(cb) {
     console.log('Do you want to use ' + stdLib.info + ' for ' + libType.info + '?');
@@ -67,17 +46,6 @@ var initTestLib = function() {
 
 }
 
-var operationsMap = {
-  all: copy(''),
-  test: copy('test'),
-  npmignore: copy('.npmignore'),
-  editorconfig: copy('.editorconfig'),
-  eslintrc: copy('.eslintrc'),
-  gitignore: copy('.gitignore'),
-
-  // test env initialization
-  testlib: initTestLib,
-};
 var dirs = ['src', 'dist', 'test'];
 
 module.exports = {

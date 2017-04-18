@@ -6,6 +6,7 @@ module.exports = class Runner {
     id += 1;
     this.runnerId = id;
     this.name = configs.name;
+    this.command = configs.command;
     this.commandAlias = configs.commandAlias;
     this.description = configs.description;
     this.options = configs.options || [];

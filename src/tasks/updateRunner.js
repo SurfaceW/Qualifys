@@ -5,6 +5,7 @@ module.exports = class UpdateRunner extends Runner {
   constructor(configs = {}) {
     super(Object.assign({}, {
       name: 'Update',
+      command: 'update',
       commandAlias: 'update',
       description: 'Update Qualifys tool',
     }, configs));

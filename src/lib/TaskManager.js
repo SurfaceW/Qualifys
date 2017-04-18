@@ -14,7 +14,7 @@ module.exports = class TaskManager {
     this.commander.version(env.version);
     this.runners.forEach(r => {
       let c = this.commander;
-      c = c.command(r.name);
+      c = c.command(r.command);
       if (r.commandAlias) c.alias(r.commandAlias);
       if (r.description) c.description(r.description);
       // if (r.options) c.option(r.options);

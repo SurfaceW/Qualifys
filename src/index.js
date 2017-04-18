@@ -4,9 +4,11 @@
 const commander = require('commander');
 const TaskManager = require('./lib/TaskManager');
 const UpdateRunner = require('./tasks/updateRunner');
+const InitialRunner = require('./tasks/initialRunner');
 
 const taskManager = new TaskManager([
-  new UpdateRunner()
+  new UpdateRunner(),
+  new InitialRunner()
 ], commander);
 
 taskManager.init();
