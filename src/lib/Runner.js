@@ -9,7 +9,7 @@ module.exports = class Runner {
     this.command = configs.command;
     this.commandAlias = configs.commandAlias;
     this.description = configs.description;
-    this.options = configs.options || [];
+    this.options = configs.options;
   }
 
   logStart() {

@@ -2,9 +2,6 @@ const Runner = require('../lib/Runner');
 const path = require('path');
 const { exec, execSync, log, success, error, getFromCwd } = require('../util');
 
-const showTestLibOpts = () =>
-  log('Enter for yes, enter \'no\' for nothing, enter a lib name to install your test lib.');
-
 module.exports = class InitialRunner extends Runner {
   constructor(configs = {}) {
     super(Object.assign({}, {

@@ -26,11 +26,14 @@
     "url": "git+https://github.com/SurfaceW/Qualifys.git"
   },
   "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "compare-versions": "^3.0.1",
+    "expect.js": "^0.3.1",
     "happypack": "^3.0.3",
     "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -40,6 +43,9 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
     "lru-cache": "^4.0.2",
+    "mocha": "^3.2.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "rxjs": "^5.3.0",
     "webpack": "^2.4.1"
   },

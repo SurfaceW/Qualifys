@@ -1,20 +1,13 @@
-var fs = require('fs');
-var webpack = require('webpack');
-var path = require('path');
-var happypack = require('happypack');
+const fs = require('fs');
+const webpack = require('webpack');
+const path = require('path');
+// const HappyPack = require('happypack');
 
-function getLoaderExclude(path) {
-  var isNpmModule = !!path.match(/node_modules/);
-  return isNpmModule;
-}
-
-var presets = ['react', 'es2015-ie', 'stage-1', 'es2015', 'stage-2'].map(function (item) {
-  return require.resolve('babel-preset-' + item);
-});
+const getLoaderExclude = (path) => !!path.match(/node_modules/);
+const presets = ['latest', 'react'].map((item) => require.resolve('babel-preset-' + item));
 
 module.exports = {
   cache: true,
-  entry: [],
   output: {
     path: path.join(process.cwd(), './dist'),
     filename: "[name].js",
@@ -34,56 +27,47 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: presets,
-          plugins: [
-            'transform-es3-member-expression-literals',
-            'transform-es3-property-literals',
-            'add-module-exports'
-          ].map(function (item) {
-            return require.resolve('babel-plugin-' + item);
-          }),
+          plugins: [],
           cacheDirectory: true
-        },
-        happy: { id: 'js' }
-      },
-      {
-        // svg loader
-        test: /\.svg$/,
-        loader: 'babel',
-        query: {
-          presets: presets,
-          cacheDirectory: true,
-          babelrc: false
         }
-      },
-      {
-        // svg loader
-        test: /\.svg$/,
-        loader: 'svg2react'
-      },
-      {
-        // less loader
-        test: /\.less$/,
-        loader: "style!css!less"
-      },
-      {
-        test: /\.json$/,
-        loaders: ['json-loader']
       }
+      // ,
+      // {
+      //   // svg loader
+      //   test: /\.svg$/,
+      //   loader: 'babel',
+      //   query: {
+      //     presets: presets,
+      //     cacheDirectory: true,
+      //     babelrc: false
+      //   }
+      // },
+      // {
+      //   // svg loader
+      //   test: /\.svg$/,
+      //   loader: 'svg2react'
+      // },
+      // {
+      //   // less loader
+      //   test: /\.less$/,
+      //   loader: "style!css!less"
+      // },
+      // {
+      //   test: /\.json$/,
+      //   loaders: ['json-loader']
+      // }
     ]
   },
   resolve: {
-    root: [
-      path.join(process.cwd(), './node_modules')
-    ]
-  },
-  resolveLoader: {
-    root: [
+    modules: [
+      path.join(process.cwd(), './node_modules'),
       path.join(__dirname, '../../node_modules')
     ]
   },
-  alias: {
-    'react/lib/ExecutionEnvironment': 'empty/object',
-    'react/lib/ReactContext': 'empty/object',
+  resolveLoader: {
+    modules: [
+      path.join(__dirname, '../../node_modules')
+    ]
   },
   externals: {
     react: 'var React', // 相当于把全局的React作为模块的返回 module.exports = React;
@@ -96,9 +80,6 @@ module.exports = {
     // SourceMap plugin will define process.env.NODE_ENV as development
     new webpack.SourceMapDevToolPlugin({
       columns: false
-    }),
-    new happypack({
-      id: 'js'
     })
   ]
 };

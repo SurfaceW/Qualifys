@@ -12,7 +12,7 @@ const externals = {
   'react/addons': true
 };
 const output = {
-  path: path.join(getFromCwd(), './dist'),
+  path: path.join(getFromCwd(), '/dist'),
   filename: '[name].js',
   sourceMapFileName: '[name].js.map'
 };
@@ -36,24 +36,24 @@ module.exports = class ConfigManager {
     this.noParse = configs.noParse || [];
     this.sourceDirs = sources.concat(configs.sourceFiles || []);
     this.esPresets = configs.esPresets || esPresets || [];
-    this.happyPackLoaders = happyPackLoaders.concat(this.configs.happyPackLoaders);
+    this.happyPackLoaders = happyPackLoaders.concat(configs.happyPackLoaders || []);
     this.externals = configs.externals || externals;
     this.testSpecFiles = configs.testSpecFiles || testSpecFiles;
     this.externalFiles = configs.externalFiles || externalFiles;
   }
 
   _getProcessPath(extra) {
-    return path.join([
+    return path.join(
       getFromCwd(),
       extra
-    ]);
+    );
   }
 
   _getDirnamePath(extra) {
-    return path.join([
+    return path.join(
       __dirname,
       extra
-    ])
+    )
   }
 
   _getWebpackCommonConfig() {
@@ -133,20 +133,22 @@ module.exports = class ConfigManager {
   }
 
   getChromeEnvConfig() {
-    return (config) => {
-      config.set(Object.assign({}, this._getKarmaCommonConfig(), {
-        browsers: ['Chrome'],
-        singleRun: false
-      }));
-    }
+    const configResult = Object.assign({}, this._getKarmaCommonConfig(), {
+      browsers: ['Chrome'],
+      singleRun: false
+    });
+    return `module.exports = function (config) {
+      config.set(${JSON.stringify(configResult)});
+    }`;
   }
 
   getPhantomJSEnvConfig() {
-    return (config) => {
-      config.set(Object.assign({}, this._getKarmaCommonConfig(), {
-        browsers: ['PhantomJS'],
-        singleRun: true,
-      }));
-    }
+    const configResult = Object.assign({}, this._getKarmaCommonConfig(), {
+      browsers: ['PhantomJS'],
+      singleRun: true,
+    });
+    return `module.exports = function (config) {
+      config.set(${JSON.stringify(configResult)});
+    }`;
   }
 }

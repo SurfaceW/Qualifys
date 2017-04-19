@@ -1,8 +1,7 @@
-var karmaCommonConfig = require('./getKarmaCommonConfig');
-var assign = require('object-assign');
+const karmaCommonConfig = require('./getKarmaCommonConfig');
 
-module.exports = function (config) {
-  config.set(assign(karmaCommonConfig(), {
+module.exports = (config) => {
+  config.set(Object.assign(karmaCommonConfig(), {
     // use chrome for more detail info
     browsers: ['PhantomJS'],
     singleRun: true,

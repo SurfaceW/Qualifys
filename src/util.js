@@ -80,6 +80,14 @@ const utils = {
     return path.join.apply(path, args);
   },
 
+  writeFileSync(content, filename) {
+    try {
+      fs.writeFileSync(path.join(__dirname, filename), content);
+    } catch (e) {
+      error(e);
+    }
+  },
+
   getFileSync: (f, isJson) => {
     f = '' + f;
     if (cache.has(f)) return cache.get(f);
