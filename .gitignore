@@ -1,6 +1,7 @@
 node_modules/
 .happypack/
 .deploy/
+.vscode/
 coverage/
 design/
 .idea/
