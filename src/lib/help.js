@@ -6,10 +6,10 @@ const helperStr = [
   '==== Initializer ===',
   'qf init             init Qualifys from a scratch',
   '==== TestRunner ====',
-  'qf test             run unit test based on test/index.js',
-  'qf test -f FILE     run unit test based on file path',
-  'qf test --debug     run unit test in a debug mode',
-  'qf cov              run unit test to generate coverage report',
+  'qf test             run unit test based on default test format as /test/*.test.js',
+  'qf test -f FILE     run unit test based on file path like: my_test/entry.test.js',
+  'qf test chrome      run unit test in Chrome',
+  'qf test cov         run unit test to generate coverage report',
 ].join('\n');
 
 class HelpCenter {

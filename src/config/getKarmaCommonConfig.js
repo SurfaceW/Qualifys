@@ -1,49 +1,24 @@
 'use strict';
 
-var fs = require('fs');
-var getFromCwd = require('../util').getFromCwd;
-var assign = require('object-assign');
-var webpackCfg = require('./webpack.dev.js');
+const fs = require('fs');
+const getFromCwd = require('../util').getFromCwd;
+const webpackCfg = require('./webpack.dev.js');
 
 module.exports = function () {
-  try {
-    var content = JSON.parse(fs.readFileSync(process.cwd() + '/tmp.json', {
-      encoding: 'utf-8'
-    })) || {};
-  } catch (err) {
-    content = {};
+  let testSpecs = ['test/*.test.js', 'test/*.spec.js'].map(t => getFromCwd(t));
+  // if we declare the specific test entry file
+  if (process.env && process.env.file) {
+    testSpecs = [path.join(getFromCwd(), env.file)];
   }
-
-  var indexSpec = getFromCwd(content.filename || 'test/*.test.js');
-  console.log('TEST ENTRY PATH: ' + indexSpec);
-
-  var files = [
-    // // polyfill console
-    // require.resolve('console-polyfill/index.js'),
-    // // babel-polyfill support promise etc. features
-    // require.resolve('babel-polyfill/dist/polyfill.js'),
-    // require.resolve('es5-shim/es5-shim.js'),
-    // require.resolve('es5-shim/es5-sham.js'),
-
+  console.log('TEST ENTRY PATH: \n' + testSpecs.join('\n'));
+  const files = [
     // inject React and ReactDOM to window object
     require.resolve('react/dist/react.js'),
     require.resolve('react-dom/dist/react-dom.js'),
+  ].concat(testSpecs);
 
-    // other possible related dependencies
-    // "https://g.alicdn.com/platform/c/rangy/1.3.0/rangy-core.min.js",
-    // "https://g.alicdn.com/platform/c/tinymce/4.3.12/tinymce.min.js",
-
-    // test files entry
-    indexSpec
-  ];
-
-  try {
-    fs.unlinkSync(process.cwd() + '/tmp.json');
-  } catch (err) {}
-
-  // webpackCfg.entry = [];
-  var preprocessors = {};
-  preprocessors[indexSpec] = ['webpack', 'sourcemap'];
+  const preprocessors = {};
+  testSpecs.forEach(t => preprocessors[t] = ['webpack', 'sourcemap']);
   return {
     reporters: ['mocha'],
     autoWatch: true,
@@ -58,7 +33,7 @@ module.exports = function () {
     frameworks: ['mocha'],
     files: files,
     preprocessors: preprocessors,
-    webpack: assign(webpackCfg, {
+    webpack: Object.assign(webpackCfg, {
       externals: {
         'react/addons': true,
         'react/lib/ReactContext': true,
