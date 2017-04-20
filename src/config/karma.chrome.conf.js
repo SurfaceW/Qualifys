@@ -1,20 +1,7 @@
-var karmaCommonConfig = require('./getKarmaCommonConfig');
-var assign = require('object-assign');
-var webpack = require('webpack');
-var happypack = require('happypack');
+const karmaCommonConfig = require('./getKarmaCommonConfig');
 
-module.exports = function (config) {
-  var browsers = ['Chrome'];
-  var commonConfig = karmaCommonConfig();
-  commonConfig.webpack.plugins = [
-    new webpack.SourceMapDevToolPlugin({
-      columns: false
-    }),
-    new happypack({
-      id: 'js'
-    }),
-  ];
-  config.set(assign(commonConfig, {
-    browsers: browsers
-  }))
+module.exports = (config) => {
+  config.set(Object.assign(karmaCommonConfig(), {
+    browsers: ['Chrome']
+  }));
 };

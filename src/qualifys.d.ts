@@ -92,23 +92,24 @@ export class Runner {
   logStart(): void;
   logSuccess(): void;
 
-  run(type: string, options: object): Promise<any>;
-  stop(): Promise<any>;
+  run(type: string, options: object): void;
 }
 
 export declare class InitialRunner extends Runner {
-  initialTest(): Promise<any>;
-  initialConfigs(): Promise<any>;
+  initialTest(): void;
+  initialConfigs(): void;
 }
 
 export class TestRunner extends Runner {
-  runPhantomTest(): Promise<any>;
-  runChromeTest(): Promise<any>;
-  runTestCoverage(): Promise<any>;
+  private _runTest(configFilePath: string): void;
+
+  runPhantomTest(): void;
+  runChromeTest(): void;
+  runTestCoverage(): void;
 }
 
 export class UpgradeRunner extends Runner {
-  update(): Promise<any>;
+  update(): void;
 }
 
 export module utils {

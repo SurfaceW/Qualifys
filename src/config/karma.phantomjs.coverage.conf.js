@@ -1,16 +1,13 @@
-'use strict';
+const path = require('path');
+const getFromCwd = require('../util').getFromCwd;
+const getKarmaCommonConfig = require('./getKarmaCommonConfig');
 
-var path = require('path');
-var getFromCwd = require('../util').getFromCwd;
-var getKarmaCommonConfig = require('./getKarmaCommonConfig');
-var assign = require('object-assign');
-
-module.exports = function conf(config) {
-  var commonConfig = getKarmaCommonConfig();
-  var preprocessors = {};
+module.exports = (config) => {
+  const commonConfig = getKarmaCommonConfig();
+  const preprocessors = {};
   preprocessors[commonConfig.files[commonConfig.files.length - 1]] = ['webpack'];
-  var reporters = ['progress', 'coverage'];
-  var coverageReporter = {
+  const reporters = ['progress', 'coverage'];
+  const coverageReporter = {
     reporters: [
       {
         type: 'lcov',
@@ -23,17 +20,19 @@ module.exports = function conf(config) {
     ],
     dir: getFromCwd('coverage/'),
   };
+
+  // combine with the TRAVIS CI
   if (process.env.TRAVIS_JOB_ID) {
     reporters = ['coverage', 'coveralls'];
   }
-  commonConfig.webpack.module.postLoaders = [
-    {
-      test: /\.js$/,
-      include: [path.join(process.cwd(), './src')],
-      loader: 'istanbul-instrumenter',
-    },
-  ];
-  config.set(assign(commonConfig, {
+
+  commonConfig.webpack.module.loaders.push({
+    test: /\.js$/,
+    include: [path.join(process.cwd(), './src')],
+    loader: 'istanbul-instrumenter-loader',
+  });
+
+  config.set(Object.assign(commonConfig, {
     preprocessors: preprocessors,
     webpack: commonConfig.webpack,
     reporters: reporters,

@@ -10,5 +10,5 @@ module.exports = (config) => {
       // (useful if karma exits without killing phantom)
       exitOnResourceError: true,
     },
-  }))
+  }));
 };

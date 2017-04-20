@@ -14,7 +14,7 @@ module.exports = function () {
     content = {};
   }
 
-  var indexSpec = getFromCwd(content.filename || 'test/*.spec.js');
+  var indexSpec = getFromCwd(content.filename || 'test/*.test.js');
   console.log('TEST ENTRY PATH: ' + indexSpec);
 
   var files = [
@@ -67,12 +67,11 @@ module.exports = function () {
     }),
     webpackMiddleware: {
       // webpack-dev-middleware configuration
-      // i. e.
       stats: 'errors-only'
     },
     webpackServer: {
       // please don't spam the console when running in karma!
-      noInfo: true,
+      noInfo: true
     },
   };
 };

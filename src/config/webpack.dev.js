@@ -31,31 +31,31 @@ module.exports = {
           cacheDirectory: true
         }
       }
-      // ,
-      // {
-      //   // svg loader
-      //   test: /\.svg$/,
-      //   loader: 'babel',
-      //   query: {
-      //     presets: presets,
-      //     cacheDirectory: true,
-      //     babelrc: false
-      //   }
-      // },
-      // {
-      //   // svg loader
-      //   test: /\.svg$/,
-      //   loader: 'svg2react'
-      // },
-      // {
-      //   // less loader
-      //   test: /\.less$/,
-      //   loader: "style!css!less"
-      // },
-      // {
-      //   test: /\.json$/,
-      //   loaders: ['json-loader']
-      // }
+      ,
+      {
+        // svg loader
+        test: /\.svg$/,
+        loader: 'babel',
+        query: {
+          presets: presets,
+          cacheDirectory: true,
+          babelrc: false
+        }
+      },
+      {
+        // svg loader
+        test: /\.svg$/,
+        loader: 'svg2react'
+      },
+      {
+        // less loader
+        test: /\.less$/,
+        loader: "style!css!less"
+      },
+      {
+        test: /\.json$/,
+        loaders: ['json-loader']
+      }
     ]
   },
   resolve: {

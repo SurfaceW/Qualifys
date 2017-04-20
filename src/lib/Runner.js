@@ -17,11 +17,9 @@ module.exports = class Runner {
   }
 
   logSuccess() {
-    success(this.name.toUpperCase() + ' SUCCESS', true);
+    success(this.name.toUpperCase() + ' COMPLETE', true);
   }
 
   // @override
   run() {}
-  // @override
-  stop() {}
 }

@@ -14,16 +14,33 @@ module.exports = class TestRunner extends Runner {
       ],
       description: 'Test Project',
     }, configs));
-    this.configManager = new configManager({});
+  }
+
+  _runTest(configFile = 'karma.phantomjs.conf.js') {
+    const karmaPath = require.resolve('karma/bin/karma');
+    execSync('node ' + karmaPath + ' start ' + path.join(__dirname, '../config/' + configFile),
+    {
+      stdio: 'inherit'
+    });
+  }
+
+  runPhantomTest() {
+    this._runTest('karma.phantomjs.conf.js');
+  }
+
+  runChromeTest() {
+    this._runTest('karma.chrome.conf.js');
+  }
+
+  runTestCoverage() {
+    this._runTest('karma.phantomjs.coverage.conf.js');
   }
 
   run(type, options) {
-    const karmaPath = require.resolve('karma/bin/karma');
-    const karmaConfig = this.configManager.getPhantomJSEnvConfig();
     this.logStart();
-    execSync('node ' + karmaPath + ' start ' + path.join(__dirname, '../config/karma.phantomjs.conf.js'), {
-      stdio: 'inherit'
-    });
+    if (typeof type === 'object') this.runPhantomTest();
+    if (type === 'chrome') this.runChromeTest();
+    if (type === 'coverage' || type === 'cov') this.runTestCoverage();
     this.logSuccess();
   }
 }
