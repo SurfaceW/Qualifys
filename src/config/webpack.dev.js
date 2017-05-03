@@ -4,7 +4,7 @@ const path = require('path');
 // const HappyPack = require('happypack');
 
 const getLoaderExclude = (path) => !!path.match(/node_modules/);
-const presets = ['latest', 'react'].map((item) => require.resolve('babel-preset-' + item));
+const presets = ['latest', 'react', 'stage-1', 'stage-2'].map((item) => require.resolve('babel-preset-' + item));
 
 module.exports = {
   cache: true,
@@ -35,7 +35,7 @@ module.exports = {
       {
         // svg loader
         test: /\.svg$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: presets,
           cacheDirectory: true,
@@ -45,12 +45,12 @@ module.exports = {
       {
         // svg loader
         test: /\.svg$/,
-        loader: 'svg2react'
+        loader: 'svg2react-loader'
       },
       {
         // less loader
         test: /\.less$/,
-        loader: "style!css!less"
+        loader: "style-loader!css-loader!less-loader"
       },
       {
         test: /\.json$/,
