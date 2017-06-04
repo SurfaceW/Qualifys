@@ -5,21 +5,29 @@ const getFromCwd = require('../util').getFromCwd;
 const webpackCfg = require('./webpack.dev.js');
 
 module.exports = function () {
-  let testSpecs = ['test/*.test.js', 'test/*.spec.js'].map(t => getFromCwd(t));
+  // let testSpecs = ['test/*.test.js', 'test/*.spec.js'].map(t => getFromCwd(t));
+  let testSpecs = ['test/index.test.js'].map(t => getFromCwd(t));
+
   // if we declare the specific test entry file
   if (process.env && process.env.file) {
     testSpecs = [path.join(getFromCwd(), env.file)];
   }
+
   console.log('TEST ENTRY PATH: \n' + testSpecs.join('\n'));
+
   const files = [
     // inject React and ReactDOM to window object
     require.resolve('react/dist/react.js'),
     require.resolve('react-dom/dist/react-dom.js'),
+    require.resolve('mocha/mocha.js'),
+    require.resolve('sinon/pkg/sinon.js'),
+    require.resolve('expect.js/index.js')
   ].concat(testSpecs);
 
   const preprocessors = {};
-  testSpecs.forEach(t => preprocessors[t] = ['webpack', 'sourcemap']);
+  testSpecs.forEach(t => preprocessors[t] = ['webpack']);
   return {
+    browsers: ['Chrome'],
     reporters: ['mocha'],
     autoWatch: true,
     browserDisconnectTimeout: 20000,

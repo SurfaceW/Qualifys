@@ -11,17 +11,20 @@ module.exports = {
   output: {
     path: path.join(process.cwd(), './dist'),
     filename: "[name].js",
-    sourceMapFilename: "[name].js.map"
   },
   module: {
-    loaders: [
+    rules: [
+      {
+        test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre"
+      },
       {
         test: /\.js(x)*$/,
         // npm modules 都不需要经过 babel 解析
         exclude: getLoaderExclude,
         include: [
           path.join(process.cwd(), './src'),
-          path.join(process.cwd(), './demo'),
           path.join(process.cwd(), './test')
         ],
         loader: 'babel-loader',
@@ -30,8 +33,7 @@ module.exports = {
           plugins: [],
           cacheDirectory: true
         }
-      }
-      ,
+      },
       {
         // svg loader
         test: /\.svg$/,
@@ -76,10 +78,13 @@ module.exports = {
     'react/lib/ReactContext': true,
     'react/addons': true
   },
+  stats: "errors-only",
   plugins: [
     // SourceMap plugin will define process.env.NODE_ENV as development
     new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map',
       columns: false
     })
-  ]
+  ],
+  devtool: 'source-map'
 };

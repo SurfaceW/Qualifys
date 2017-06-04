@@ -26,8 +26,9 @@ module.exports = (config) => {
     reporters = ['coverage', 'coveralls'];
   }
 
-  commonConfig.webpack.module.loaders.push({
+  commonConfig.webpack.module.rules.push({
     test: /\.js$/,
+    enforce: 'post',
     include: [path.join(process.cwd(), './src')],
     loader: 'istanbul-instrumenter-loader',
   });
@@ -37,7 +38,7 @@ module.exports = (config) => {
     webpack: commonConfig.webpack,
     reporters: reporters,
     coverageReporter: coverageReporter,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     singleRun: true,
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered

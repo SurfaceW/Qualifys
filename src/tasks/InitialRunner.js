@@ -13,15 +13,15 @@ module.exports = class InitialRunner extends Runner {
   }
 
   initialTest() {
-    log('installing test lib ...');
-    exec('npm i --save-dev mocha expect.js sinon@^2.0.0')
-      .subscribe(
-        () => {
-          success('successfully installed test lib as dev-dependencies')
-          this.logSuccess();
-        },
-        (e) => error('failed, due to the error: ' + e)
-      );
+    // log('installing test lib ...');
+    // exec('npm i --save-dev mocha expect.js sinon@^2.0.0')
+    //   .subscribe(
+    //     () => {
+    //       success('successfully installed test lib as dev-dependencies')
+    //       this.logSuccess();
+    //     },
+    //     (e) => error('failed, due to the error: ' + e)
+    //   );
   }
 
   initialConfigs() {
