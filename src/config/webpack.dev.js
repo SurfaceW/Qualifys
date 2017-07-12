@@ -15,6 +15,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader"
+      },
+      {
         test: /\.js$/,
         use: ["source-map-loader"],
         enforce: "pre"
