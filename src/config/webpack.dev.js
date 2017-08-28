@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ["source-map-loader"],
+        loader: "source-map-loader",
         enforce: "pre"
       },
       {

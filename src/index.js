@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 'use strict'
+
 const commander = require('commander');
 const TaskManager = require('./lib/TaskManager');
 const UpdateRunner = require('./tasks/updateRunner');
