@@ -1,6 +1,6 @@
 {
   "name": "qualifys",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "development QA tools for App",
   "keywords": [
     "qualifys",
@@ -8,6 +8,7 @@
     "QA"
   ],
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "start": "npm start",
     "test": "mocha"
   },
@@ -19,7 +20,7 @@
   "types": "./src/qualifys.d.ts",
   "license": "MIT",
   "bin": {
-    "qf": "./bin/qualifys.js"
+    "qf": "./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -60,5 +61,11 @@
     "style-loader": "^0.16.1",
     "typescript": "^2.4.1",
     "webpack": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.6.0",
+    "webpack": "^2.7.0"
   }
 }
