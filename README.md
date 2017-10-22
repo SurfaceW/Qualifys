@@ -8,10 +8,10 @@ Series of tools to focus on your App's code quality.
 npm install -g qualifys
 
 cd myproject/
-qualifys init
+qf init
 ```
 
-You'll need to have **Node >= 4** on your machine. We recmommend you to use Node stable version as v4.4.x to use this QA tool.
+You'll need to have **Node >= 7** on your computer. 
 
 
 ## Philosophy
@@ -27,7 +27,7 @@ You'll need to have **Node >= 4** on your machine. We recmommend you to use Node
 
 ```sh
 cd ~/project/myproject
-qualifys init
+qf init
 ```
 
 This will add `.editorconfig`, `.eslintrc`, `.gitignore`, `.npmignore` to your project folder. And add `src/`, `dist/`, `test/` directory to your project if they don't exist.
@@ -44,14 +44,13 @@ npm install react
 npm install react-dom
 ```
 
-- `qualifys run test` to start test with `Karma`, `Mocha`, `Expect.js` and `enzyme`.
+- `qf run test` to start test with `Karma`, `Mocha`, `Expect.js` and `enzyme`.
     + Test code support ES6.
     + Test code support `svg loader`, `json loader`.
-- `qualifys run test -f 'test/testfile.js'` to start test with selected entry point.
 
 We recmommend you to organize the test files under `test/` directory.
 
-By default, you have to specify a `index.js` under the `test/` directory to declare which test files are going to be run.
+By default, you have to specify a `index.test.js` in the `test/` directory to declare which test files are going to be run.
 
 ```js
 /**
@@ -65,12 +64,11 @@ By default, you have to specify a `index.js` under the `test/` directory to decl
 
 #### qualifys run coverage
 
-- `qualifys run coverage` to start generate a report of test coverage.
+- `qf run cov` to start generate a report of test coverage.
 
-### Lint
+### update
 
-- `qualifys run lint` to start lint code and generate a lint report.
-- Here is a [guide](http://blog.surfacew.com/fe_tech/2016/07/25/Linter/) to make linting code live with your editor live.
+- `qf update` to upgrade qualifys to the latest version.
 
 ### Help
 

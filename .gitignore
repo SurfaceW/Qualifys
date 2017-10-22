@@ -5,6 +5,7 @@ node_modules/
 coverage/
 design/
 .idea/
+.history/
 docs/
 
 npm-debug.log.*

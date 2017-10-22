@@ -15,7 +15,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         loader: "awesome-typescript-loader"
       },
       {
@@ -68,7 +68,8 @@ module.exports = {
     modules: [
       path.join(process.cwd(), './node_modules'),
       path.join(__dirname, '../../node_modules')
-    ]
+    ],
+    extensions: [".js", ".json", ".jsx", ".ts", ".tsx"],
   },
   resolveLoader: {
     modules: [
