@@ -15,7 +15,6 @@ module.exports = class TaskManager {
     this.runners.forEach(r => {
       let c = this.commander;
       c = c.command(r.command);
-      if (r.commandAlias) c.alias(r.commandAlias);
       if (r.description) c.description(r.description);
       if (r.options) {
         r.options.map(o => c.option(o[0], o[1]));
