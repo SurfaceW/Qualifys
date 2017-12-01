@@ -4,7 +4,7 @@ const path = require('path');
 // const HappyPack = require('happypack');
 
 const getLoaderExclude = (path) => !!path.match(/node_modules/);
-const presets = ['latest', 'react', 'stage-1', 'stage-2'].map((item) => require.resolve('babel-preset-' + item));
+const presets = ['env', 'react', 'stage-1', 'stage-2'].map((item) => require.resolve('babel-preset-' + item));
 
 module.exports = {
   cache: true,
@@ -31,21 +31,25 @@ module.exports = {
           path.join(process.cwd(), './src'),
           path.join(process.cwd(), './test')
         ],
-        loader: 'babel-loader',
-        query: {
-          presets: presets,
-          plugins: [],
-          cacheDirectory: true
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: presets,
+            plugins: [],
+            cacheDirectory: true
+          }
         }
       },
       {
         // svg loader
         test: /\.svg$/,
-        loader: 'babel-loader',
-        query: {
-          presets: presets,
-          cacheDirectory: true,
-          babelrc: false
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: presets,
+            cacheDirectory: true,
+            babelrc: false
+          }
         }
       },
       {
