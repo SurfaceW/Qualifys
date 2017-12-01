@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "awesome-typescript-loader": "^3.2.1",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^6.4.1",
-    "babel-preset-latest": "^6.24.1",
+  "babel-preset-react": "^6.24.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -62,12 +62,7 @@
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.16.1",
     "typescript": "^2.4.1",
-    "webpack": "^2.4.1"
+    "webpack": "^3.9.1"
   },
-  "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^6.4.1",
-    "babel-preset-env": "^1.6.0",
-    "webpack": "^2.7.0"
-  }
+  "devDependencies": {}
 }
